@@ -17,7 +17,7 @@ export const Navbar = () => {
             </li>
           </div>
           <li>
-            <NavLink to={"/cart"}>
+            <NavLink to={"/checkout"}>
               <button className="cart-button">
                 <svg
                   className="cart-icon"

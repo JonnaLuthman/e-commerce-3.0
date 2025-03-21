@@ -4,7 +4,7 @@ import { NotFound } from "./pages/NotFound";
 import { HomePage } from "./pages/HomePage"
 import { ProductPage } from "./pages/ProductPage";
 import { AdminPage } from "./pages/AdminPage";
-import { Cart } from "./pages/Cart";
+import { Cart, Checkout } from "./pages/Checkout";
 import { OrderDetailsPage } from "./pages/OrderDetailsPage";
 
 
@@ -27,8 +27,8 @@ export const router = createBrowserRouter([
                 element: <AdminPage />
             },
             {
-                path: "/cart",
-                element: <Cart />
+                path: "/checkout",
+                element: <Checkout />
             },
             {
                 path: "/admin/order/:id",
