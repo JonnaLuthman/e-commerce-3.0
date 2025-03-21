@@ -3,10 +3,13 @@ export const saveTolocalStorage = (
     data: unknown,
     expirationTime: number = Date.now() + 1000 * 60 * 10
 ) => {
+    const existingData = JSON.parse(localStorage.getItem(name) || "{}");
     const cachedData = {
-        cart: data,
+        ...existingData,
+        data,
         expiration: expirationTime
     }
+
     localStorage.setItem(name, JSON.stringify(cachedData))
 }
 
@@ -21,5 +24,5 @@ export const getFromLocalStorage = ( name: string ) => {
         return null;
     }
 
-    return cachedData[name]
+    return cachedData.data
 }
