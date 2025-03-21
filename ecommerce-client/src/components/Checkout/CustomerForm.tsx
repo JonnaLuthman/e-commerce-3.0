@@ -1,18 +1,24 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { CustomerPublic } from "../../types/Customer";
 import CustomerContext from "../../contexts/CustomerContext";
 import { useCustomers } from "../../hooks/useCustomers";
 import { ActionType } from "../../reducers/CustomerReducer";
 import { fetchCustomers } from "../../services/customerService";
-import {
-  getFromLocalStorage,
-  saveTolocalStorage,
-} from "../../utils/localStorageUtils";
-import { data } from "react-router";
+import { getFromLocalStorage, saveTolocalStorage,
+  } from "../../utils/localStorageUtils";
+import { CartItem } from "../../types/CartItem";
+import { OrderCreate } from "../../types/Order";
 
 export const CustomerForm = () => {
   const { customers, dispatch } = useContext(CustomerContext);
   const { createCustomerHandler, fetchCustomerByEmailHandler } = useCustomers();
+  const [order, setOrder] = useState<OrderCreate>({
+    customer_id: 0,
+    payment_status: "",
+    payment_id: "",
+    order_status: "",
+    order_items: []
+  })
   const [customer, setCustomer] = useState<CustomerPublic>({
     firstname: "",
     lastname: "",
@@ -45,7 +51,7 @@ export const CustomerForm = () => {
         city: "",
         country: "",
       });
-
+      console.log("customerID from fetchCustomerByEmailHandler", data.id)
       return data.id;
     });
   };
@@ -70,34 +76,68 @@ export const CustomerForm = () => {
           country: "",
         });
 
+        console.log("customerID from createCustomerHandler", data.id)
         return data.id;
       });
     });
   };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const customerExists = customers.find((c) => c.email == customer.email);
-
-    let promise;
-
-    if (customerExists) {
-      promise = getCustomerbyEmail().then((data) => data);
-    } else {
-      promise = createCustomer().then((data) => data);
-    }
-
-
-  };
-
+  
+  const transformProducts = () => {
+    const cart = getFromLocalStorage("cart");
+    console.log("cart from LS", cart);
+    
+    if (!cart) return;
+    return cart.map((cartItem: CartItem) => ({
+      product_id: cartItem.product.id,
+      product_name: cartItem.product.name,
+      quantity: cartItem.quantity,
+      unit_price: cartItem.product.price
+      
+    }))
+  }
+  
   const createOrder = () => {
-    const customer = getFromLocalStorage("customer");
-    console.log("customer from LS", customer);
-    const cartItems = getFromLocalStorage("cart")
-    console.log("cart items from LS",cartItems);
+    setOrder({...order, 
+      payment_status: "Unpaid",
+      payment_id: "",
+      order_status: "Pending",
+      order_items: transformProducts()
+    })
+};
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const customerExists = customers.find((c) => c.email === customer.email);
+    console.log("customer exists", customerExists)
+    try {
+      let customerId: number;
+
+      if (customerExists) {
+        customerId = await getCustomerbyEmail();
+        console.log("customerID from getCustomerbyEmail", customerId);
+      } else {
+        customerId = await createCustomer();
+        console.log("customerID from createCustomer", customerId);
+      }
+
+      setOrder((prevOrder) => ({
+        ...prevOrder,
+        customer_id: customerId,
+      }));
+      console.log("order", order);
+      
+      createOrder()
+
+
+    } catch (error) {
+      console.error("Error handling customer:", error);
+    }
   };
 
-  createOrder()
+  useEffect(() => {
+    console.log("order updated:", order);
+  }, [order]);
+
 
   return (
     <div>
