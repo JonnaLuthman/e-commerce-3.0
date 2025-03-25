@@ -92,7 +92,7 @@ export const CustomerForm = () => {
     setOrder(newOrder);
 
     const data = await createOrderHandler(newOrder);
-    console.log("Data from created order: ", data);
+    console.log("data and new Order", data, newOrder)
     return { data, newOrder };
   };
   console.log("New order:", order);
@@ -135,11 +135,8 @@ export const CustomerForm = () => {
       }
 
       const { data, newOrder } = await createOrder_checkout(customerId);
-      console.log("Updated order:", data);
       const orderId = data.id;
-
       const line_items = createLineItems(newOrder);
-      console.log("Updated order 2:", line_items);
 
       try {
         const response = await fetch("http://localhost:3000/stripe/checkout", {
@@ -163,16 +160,15 @@ export const CustomerForm = () => {
         // Redirect to Stripe Hosted Checkout
         window.location.href = data.checkout_url;
 
+        const paymentId = data.sessionId;
         setOrder((prevOrder) => ({
           ...prevOrder,
           payment_id: data.sessionId,
         }));
 
         await new Promise((resolve) => setTimeout(resolve, 100));
+        await updateOrder_checkout(orderId, paymentId);
 
-        const updatedOrder = await updateOrder_checkout(orderId, order.payment_id);
-
-        console.log("Order after payment:", updatedOrder);
       } catch (error) {
         console.log(error);
       }
