@@ -10,8 +10,6 @@ type SubPage = "customers" | "products" | "orders";
 export const AdminPage = () => {
     const [activeSection, setActiveSection] = useState<SubPage>("orders");
 
-
-
     return (
         <div>
             <nav>

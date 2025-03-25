@@ -4,9 +4,12 @@ import { cartActionType } from "../../reducers/CartReducer";
 import { Product } from "../../types/Product";
 import { Link } from "react-router";
 import { CartItem } from "../../types/CartItem";
+import { CheckoutContext, checkoutPhases } from "../../contexts/CheckoutContext";
 
 export const Cart = () => {
   const { cart, cartDispatch } = useContext(CartContext);
+  const { phase, setPhase } = useContext(CheckoutContext)
+  console.log(phase)
 
   const handleChangeQuantity = (product: Product, quantity: number) => {
     cartDispatch({
@@ -76,12 +79,12 @@ export const Cart = () => {
               </div>
             </div>
           ))}
-          <div className="cart-wrapper">
-            <h3>Bag total</h3>
-            <h3>Total: {totalSum} kr</h3>
-          </div>
           <button onClick={handleResetCart}>Reset Cart</button>
-          <button type="submit">Checkout</button>
+          <div>
+            <h3>Bag total</h3>
+            <p>Total: {totalSum} kr</p>
+          </div>
+          <button onClick={() => setPhase(checkoutPhases.second)}>Checkout</button>
         </div>
       )}
       </div>

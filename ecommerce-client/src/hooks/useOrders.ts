@@ -1,4 +1,4 @@
-import { createOrder, deleteOrderItem, updateOrderItem } from "../services/orderService";
+import { createOrder, deleteOrderItem, fetchOrderByPaymentId, updateOrderItem } from "../services/orderService";
 import { updateOrder } from "../services/orderService";
 import { useState } from "react";
 import {
@@ -38,6 +38,18 @@ export const useOrders = () => {
       setIsLoading(false);
     }
   };
+  const fetchOrderByPaymentIdHandler = async (id: string) => {
+    setIsLoading(true);
+    try {
+      const data = await fetchOrderByPaymentId(id);
+      return data;
+    } catch (error) {
+      setError("Error: Failed to get order");
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const deleteOrderHandler = async (id: number) => {
     setIsLoading(true);
@@ -55,6 +67,7 @@ export const useOrders = () => {
     setIsLoading(true);
     try {
       const data = await updateOrder(id, payload);
+      console.log("data updateOrderHandler", data)
       return data;
     } catch (error) {
       setError("Error: Failed to udate order");
@@ -111,6 +124,7 @@ export const useOrders = () => {
     updateOrderHandler,
     createOrderHandler,
     updateOrderItemHandler,
-    deleteOrderItemHandler
+    deleteOrderItemHandler, 
+    fetchOrderByPaymentIdHandler
   };
 };

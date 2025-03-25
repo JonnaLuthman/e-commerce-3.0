@@ -11,7 +11,6 @@ export const Orders = () => {
   useEffect(() => {
     const getData = async () => {
       const data = await fetchOrdersHandler();
-      console.log(data);
       dispatch({
         type: ActionType.ORDERS_LOADED,
         payload: JSON.stringify(data),
