@@ -26,3 +26,7 @@ export const getFromLocalStorage = ( name: string ) => {
 
     return cachedData.data
 }
+
+export const removeFromLocalStorage = (name: string) => {
+    localStorage.removeItem(name);
+}

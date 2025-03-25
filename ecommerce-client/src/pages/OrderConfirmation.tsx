@@ -1,10 +1,14 @@
 import { useOrders } from "../hooks/useOrders";
-import { useEffect, useState } from "react";
-import { Order } from "../types/Order";
+import { useContext, useEffect, useState } from "react";
+import { Order, OrderUpdate } from "../types/Order";
 import { useSearchParams } from "react-router";
+import { removeFromLocalStorage } from "../utils/localStorageUtils";
+import CartContext from "../contexts/CartContext";
+import { cartActionType } from "../reducers/CartReducer";
 
 export const OrderConfirmation = () => {
-  const { fetchOrderByPaymentIdHandler } = useOrders();
+  const { cartDispatch } = useContext(CartContext);
+  const { fetchOrderByPaymentIdHandler, updateOrderHandler } = useOrders();
   const [searchParams] = useSearchParams();
   const session_id = searchParams.get("session_id");
   const [order, setOrder] = useState<Order>();
@@ -19,9 +23,40 @@ export const OrderConfirmation = () => {
     setOrder(data);
   };
 
+  const updateOrder_orderConfirmation = async () => {
+    if (!session_id || !order?.id) return;
+
+    const updatedOrder: OrderUpdate = {
+      payment_status: "Paid",
+      payment_id: session_id as string,
+      order_status: "Received",
+    };
+    await updateOrderHandler(order.id, updatedOrder);
+
+  };
+
   useEffect(() => {
-    getOrder_orderConfirmation();
+    const fetchData = async () => {
+      await getOrder_orderConfirmation();
+
+      cartDispatch({
+        type: cartActionType.RESET_CART,
+        payload: [],
+      });
+
+      removeFromLocalStorage("cart");
+      removeFromLocalStorage("customer");
+
+    };
+
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (order?.id) {
+      updateOrder_orderConfirmation();
+    } 
+  })
 
   return (
     <div>
