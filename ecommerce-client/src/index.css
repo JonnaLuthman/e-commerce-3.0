@@ -119,11 +119,6 @@ footer {
   justify-content: center;
 }
 
-.cart-wrapper {
-  display: flex;
-  flex-direction: column;
-}
-
 .cart-item {
   display: flex;
   flex-direction: row;

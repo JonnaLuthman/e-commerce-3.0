@@ -4,9 +4,9 @@ import { NotFound } from "./pages/NotFound";
 import { HomePage } from "./pages/HomePage"
 import { ProductPage } from "./pages/ProductPage";
 import { AdminPage } from "./pages/AdminPage";
-import { Cart } from "./pages/Cart";
+import { Checkout } from "./pages/Checkout";
 import { OrderDetailsPage } from "./pages/OrderDetailsPage";
-
+import { OrderConfirmation } from "./pages/OrderConfirmation";
 
 export const router = createBrowserRouter([
     {
@@ -27,12 +27,16 @@ export const router = createBrowserRouter([
                 element: <AdminPage />
             },
             {
-                path: "/cart",
-                element: <Cart />
+                path: "/checkout",
+                element: <Checkout />
             },
             {
                 path: "/admin/order/:id",
                 element: <OrderDetailsPage />
+            },
+            {
+                path: "/order-confirmation",
+                element: <OrderConfirmation />
             }
         ]
 

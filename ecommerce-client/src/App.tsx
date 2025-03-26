@@ -3,13 +3,19 @@ import "./App.css";
 import { router } from "./Router";
 import { ProductProvider } from "./contexts/ProductContext";
 import { CartProvider } from "./contexts/CartContext";
+import { CheckoutProvider } from "./contexts/CheckoutContext";
+import { CustomerProvider } from "./contexts/CustomerContext";
 
 function App() {
   return (
     <>
       <ProductProvider>
         <CartProvider>
-          <RouterProvider router={router}></RouterProvider>
+          <CustomerProvider>
+            <CheckoutProvider>
+              <RouterProvider router={router}></RouterProvider>
+            </CheckoutProvider>
+          </CustomerProvider>
         </CartProvider>
       </ProductProvider>
     </>
