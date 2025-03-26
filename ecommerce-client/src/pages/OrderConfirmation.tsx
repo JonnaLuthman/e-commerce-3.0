@@ -55,7 +55,7 @@ export const OrderConfirmation = () => {
   useEffect(() => {
     if (order?.id) {
       updateOrder_orderConfirmation();
-    } 
+    }
   })
 
   return (
