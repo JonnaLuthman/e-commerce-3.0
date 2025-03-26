@@ -1,11 +1,8 @@
 import { useContext } from "react";
-import { CustomerForm } from "../components/Checkout/CustomerForm";
 import { CustomerProvider } from "../contexts/CustomerContext";
 import { Cart } from "../components/Checkout/Cart";
-import {
-  CheckoutContext,
-  checkoutPhases,
-} from "../contexts/CheckoutContext";
+import { CheckoutContext, checkoutPhases } from "../contexts/CheckoutContext";
+import { CustomerCheckout } from "../components/Checkout/CustomerCheckout";
 
 export const Checkout = () => {
   const { phase } = useContext(CheckoutContext);
@@ -15,9 +12,7 @@ export const Checkout = () => {
       case checkoutPhases.first:
         return <Cart />;
       case checkoutPhases.second:
-        return <CustomerForm />;
-      // case checkoutPhases.third
-      // Return stripe payment
+        return <CustomerCheckout/>
       default:
         return <Cart />;
     }
