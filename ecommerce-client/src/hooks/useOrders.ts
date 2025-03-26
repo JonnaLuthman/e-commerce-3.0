@@ -8,6 +8,8 @@ import {
 } from "../services/orderService";
 import { OrderCreate, OrderUpdate } from "../types/Order";
 import { OrderItemUpdate } from "../types/Order";
+import { CartItem } from "../types/CartItem";
+import { getFromLocalStorage } from "../utils/localStorageUtils";
 
 export const useOrders = () => {
   const [error, setError] = useState<string>("");
@@ -115,6 +117,40 @@ export const useOrders = () => {
     }
   };
 
+    const transformProducts_checkout = () => {
+      const cart = getFromLocalStorage("cart");
+  
+      if (!cart) return;
+      return cart.map((cartItem: CartItem) => ({
+        product_id: cartItem.product.id,
+        product_name: cartItem.product.name,
+        quantity: cartItem.quantity,
+        unit_price: cartItem.product.price,
+      }));
+    };
+
+  const createOrder_checkout = async (customerId: number) => {
+    const newOrder: OrderCreate = {
+      customer_id: customerId,
+      payment_status: "Unpaid",
+      payment_id: "",
+      order_status: "Pending",
+      order_items: transformProducts_checkout(),
+    };
+
+    const data = await createOrderHandler(newOrder)
+    return { data, newOrder };
+  }
+
+  const updateOrder_checkout = async (orderId: number, payment_id: string) => {
+    const updatedOrder: OrderUpdate = {
+      payment_status: "Unpaid",
+      payment_id: payment_id,
+      order_status: "Pending",
+    };
+    await updateOrderHandler(orderId, updatedOrder);
+  };
+
   return {
     error,
     loading,
@@ -125,6 +161,8 @@ export const useOrders = () => {
     createOrderHandler,
     updateOrderItemHandler,
     deleteOrderItemHandler, 
-    fetchOrderByPaymentIdHandler
+    fetchOrderByPaymentIdHandler,
+    createOrder_checkout,
+    updateOrder_checkout
   };
 };
