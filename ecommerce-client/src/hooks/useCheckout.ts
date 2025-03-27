@@ -1,15 +1,18 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { CustomerPublic } from "../types/Customer";
-import { stripeCheckout } from "../services/stripeService";
-import { OrderCreate, LineItem, OrderItem } from "../types/Order";
+import { getClientSecret } from "../services/stripeService";
+import { LineItemOrder, OrderCreate, OrderItem } from "../types/Order";
 import { useCustomers } from "./useCustomers";
 import { useOrders } from "./useOrders";
 import CustomerContext from "../contexts/CustomerContext";
+import { CheckoutContext, checkoutPhases } from "../contexts/CheckoutContext";
+import { saveTolocalStorage } from "../utils/localStorageUtils";
 
 export const useCheckout = () => {
-  const { createOrder_checkout, updateOrder_checkout } = useOrders();
+  const { createOrder_checkout } = useOrders();
   const { handleCustomer } = useCustomers();
   const { dispatch } = useContext(CustomerContext);
+  const { setPhase } = useContext(CheckoutContext);
   const [customer, setCustomer] = useState<CustomerPublic>({
     firstname: "",
     lastname: "",
@@ -21,6 +24,7 @@ export const useCheckout = () => {
     country: "",
   });
 
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.type === "number") {
       setCustomer({ ...customer, [e.target.name]: +e.target.value });
@@ -29,17 +33,19 @@ export const useCheckout = () => {
     }
   };
 
-  const createLineItems = (order: OrderCreate) => {
-    const lineItems: LineItem[] = order.order_items.map((item: OrderItem) => ({
-      price_data: {
-        currency: "sek",
-        product_data: {
-          name: item.product_name,
+  const createLineItems = (order: OrderCreate): LineItemOrder[] => {
+    const lineItems: LineItemOrder[] = order.order_items.map(
+      (item: OrderItem) => ({
+        price_data: {
+          currency: "sek",
+          product_data: {
+            name: item.product_name,
+          },
+          unit_amount: item.unit_price,
         },
-        unit_amount: item.unit_price * 100,
-      },
-      quantity: item.quantity,
-    }));
+        quantity: item.quantity,
+      })
+    );
     return lineItems;
   };
 
@@ -47,13 +53,16 @@ export const useCheckout = () => {
     e.preventDefault();
     try {
       const customerId = await handleCustomer(customer, dispatch);
-      const { data, newOrder } = await createOrder_checkout(customerId);
-      const lineItems = await createLineItems(newOrder);
-      const response = await stripeCheckout(newOrder, lineItems);
+      const { newOrder, data } = await createOrder_checkout(customerId);
+      const orderId: number = data.id
+      const lineItems = createLineItems(newOrder);
+      const secret = await getClientSecret( orderId, lineItems);
+      setPhase(checkoutPhases.third);
 
-      if (response) {
-        window.location.href = response.checkout_url;
-        await updateOrder_checkout(data.id, response.sessionId);
+      if (secret) {
+        saveTolocalStorage("secret", secret);
+      } else {
+        console.error("Failed to get clientSecret");
       }
     } catch (error) {
       console.error("Error handling checkout:", error);

@@ -46,6 +46,7 @@ export const OrderConfirmation = () => {
 
       removeFromLocalStorage("cart");
       removeFromLocalStorage("customer");
+      removeFromLocalStorage("secret")
 
     };
 

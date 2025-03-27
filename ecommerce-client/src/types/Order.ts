@@ -1,4 +1,3 @@
-
 export type Order = {
   id: number | null;
   customer_id: number;
@@ -65,7 +64,7 @@ export type OrderItem = {
 
 export type OrderItemUpdate = Pick<OrderItem, "quantity">;
 
-export type LineItem = {
+export type LineItemOrder = {
   price_data: {
     currency: string;
     product_data: {
