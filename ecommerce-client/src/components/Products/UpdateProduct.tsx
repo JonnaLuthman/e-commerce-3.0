@@ -37,7 +37,6 @@ export const UpdateProduct = (props: IUpdateProductProps) => {
     fetchData();
   }, []);
 
-
   const handleBackClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.setUpdateProductId(null);
@@ -45,9 +44,7 @@ export const UpdateProduct = (props: IUpdateProductProps) => {
 
   const handleChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-
     const { name, value } = e.target;
-
     setUpdatedProduct((prevProduct) => {
       if (!prevProduct) return prevProduct;
       return { ...prevProduct, [name]: value };

@@ -45,8 +45,8 @@ export const Customers = () => {
                                 <h3>{firstname} {lastname}</h3>
                                 <p>{city}</p>
                                 <div className="button-wrapper">
-                                    <button onClick={() => setEditingCustomerId(id)}>Edit</button>
-                                    <button onClick={() => handleDelete(id)}>Delete</button>
+                                    <button className="flex items-center justify-center rounded-lg text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" onClick={() => setEditingCustomerId(id)}>Edit</button>
+                                    <button className="flex items-center justify-center rounded-lg text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" onClick={() => handleDelete(id)}>Delete</button>
                                 </div>
                             </>
                         )}

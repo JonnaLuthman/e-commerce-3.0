@@ -17,7 +17,7 @@ export const updateOrder = async (
       session.client_reference_id,
     ];
 
-    const [result] = await db.query<ResultSetHeader>(sql, params);
+    await db.query<ResultSetHeader>(sql, params);
   } catch (error) {
     console.error(error);
   }
