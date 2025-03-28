@@ -41,7 +41,7 @@ export const useCheckout = () => {
           product_data: {
             name: item.product_name,
           },
-          unit_amount: item.unit_price,
+          unit_amount: item.unit_price * 100,
         },
         quantity: item.quantity,
       })
