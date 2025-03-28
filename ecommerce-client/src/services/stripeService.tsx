@@ -7,7 +7,7 @@ export const getClientSecret = async (orderId: number, lineItems: LineItemOrder[
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         line_items: lineItems,
-        customer_id: orderId
+        orderId: orderId
       }),
     });
 

@@ -69,3 +69,23 @@ const updateOrderTotalPrice = async (order_id: number) => {
     throw new Error;
   }
 }
+
+const updateOrder = async (id: number) => {
+  try {
+    const sql = `
+    UPDATE orders 
+    SET payment_status = ?, payment_id = ?, order_status = ?
+    WHERE id = ?
+  `;
+    const params = [
+      "Paid",
+      session.id,
+      "Received",
+      id,
+    ];
+
+    const [result] = await db.query<ResultSetHeader>(sql, params);
+  } catch (error) {
+    console.error(error);
+  }
+};
