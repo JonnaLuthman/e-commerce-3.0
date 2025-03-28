@@ -43,7 +43,6 @@ app.post("/stripe/webhooks", async (req: Request, res: Response) => {
 
     default:
       console.log(`Unhandled event type ${event.type}`);
-
       break;
   }
 

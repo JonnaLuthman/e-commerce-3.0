@@ -5,7 +5,7 @@ import { CheckoutContext, checkoutPhases } from "../contexts/CheckoutContext";
 
 export const Navbar = () => {
   const { cartQuantity } = useContext(CartContext);
-  const { setPhase } = useContext(CheckoutContext)
+  const { setPhase } = useContext(CheckoutContext);
   return (
     <>
       <nav>
@@ -20,7 +20,10 @@ export const Navbar = () => {
           </div>
           <li>
             <NavLink to={"/checkout"}>
-              <button className="cart-button" onClick={()=> setPhase(checkoutPhases.first)}>
+              <button
+                className="cart-button"
+                onClick={() => setPhase(checkoutPhases.first)}
+              >
                 <svg
                   className="cart-icon"
                   xmlns="http://www.w3.org/2000/svg"

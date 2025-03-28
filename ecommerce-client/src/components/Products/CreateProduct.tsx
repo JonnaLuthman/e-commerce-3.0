@@ -152,6 +152,21 @@ export const CreateProduct = ({ handleClose }: CreateProductProps) => {
         >
           Create Product
         </button>
+        <button
+          type="submit"
+          onClick={()=> {handleClose()}}
+          style={{
+            color: "#fff",
+            padding: "10px",
+            border: "none",
+            borderRadius: "4px",
+            fontSize: "16px",
+            cursor: "pointer",
+          }}
+
+        >
+          Close
+        </button>
       </form>
     </div>
   );
