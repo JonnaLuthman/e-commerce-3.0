@@ -2,20 +2,17 @@ import { ResultSetHeader } from "mysql2/promise";
 import { db } from "../config/db";
 import Stripe from "stripe";
 
-
 export const updateOrder = async (
   session: Stripe.Checkout.Session
 ): Promise<void> => {
   try {
-    if (!session.client_reference_id) {
-      throw new Error("client_reference_id is missing in the session.");
-    }
-
     const sql = `
     UPDATE orders 
     SET payment_status = ?, payment_id = ?, order_status = ?
     WHERE id = ?
   `;
+
+  console.log("session:", "paymentID:",session.client_reference_id, "orderID:",session.id)
     const params = [
       "Paid",
       session.id,
@@ -24,9 +21,9 @@ export const updateOrder = async (
     ];
 
     await db.query<ResultSetHeader>(sql, params);
+    console.log("Order updated")
   } catch (error) {
-    console.error("Could not update order in DB:", error);
-    throw Error;
+    console.error(error);
   }
 };
 
@@ -54,6 +51,5 @@ export const updateProductStock = async (order_id: number) => {
     }
   } catch (error) {
     console.error(error);
-    throw Error;
   }
 };

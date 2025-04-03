@@ -31,15 +31,24 @@ app.post("/stripe/checkout", async (req: Request, res: Response) => {
   }
 });
 
-app.post("/stripe/webhooks", async (req: Request, res: Response) => {
+app.post("/stripe/webhook",  async (req: Request, res: Response) => {
   const event = req.body;
 
   switch (event.type) {
     case "checkout.session.completed":
       const session = event.data.object;
+      console.log(session)
+
+      if (!session.client_reference_id) {
+        console.error("client_reference_id is missing in session");
+        return res.status(400).json({ error: "client_reference_id is missing" });
+      }
 
       await updateOrder(session);
-      await updateProductStock(session.client_reference_id);
+      await updateProductStock(Number(session.client_reference_id));
+
+      console.log("Order and product stock updated");
+      break;
 
     default:
       console.log(`Unhandled event type ${event.type}`);
