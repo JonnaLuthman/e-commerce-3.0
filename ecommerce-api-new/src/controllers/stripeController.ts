@@ -4,7 +4,7 @@ import { STRIPE_SECRET_KEY } from "../constants/env";
 import { updateOrder, updateProductStock } from "../hooks/useOrder";
 const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
-const URL_client = 'https://e-commerce-3-0.vercel-client.app/'
+const URL_client = 'https://e-commerce-3-0.vercel.app/'
 
 
 export const checkoutSession = async (req: Request, res: Response): Promise<void> => {
