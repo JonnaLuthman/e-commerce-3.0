@@ -8,7 +8,7 @@ import { Pagination } from "../Pagination";
 export const Products = () => {
   const { deleteProductHandler } = useProduct();
   const { products, dispatch } = useContext(ProductContext);
-  const [updatePrductId, setUpdateProductId] = useState<number | null>(null);
+  const [updateProductId, setUpdateProductId] = useState<number | null>(null);
   const [openCreate, setOpenCreate] = useState<boolean>(false);
 
   const [currentPage, setCurrentPage] = useState(1);
