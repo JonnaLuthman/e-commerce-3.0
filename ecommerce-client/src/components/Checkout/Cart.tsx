@@ -59,7 +59,7 @@ export const Cart = () => {
               <div className="px-4 py-6 sm:px-8 sm:py-10">
                 <div className="flow-root">
                   {cart.map((cartItem: CartItem) => (
-                    <ul className="-my-8">
+                    <ul className="-my-8" key={cartItem.product.id}>
                       <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
                         <div className="shrink-0">
                           <img
@@ -126,11 +126,10 @@ export const Cart = () => {
                                 stroke="currentColor"
                               >
                                 <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
                                   d="M6 18L18 6M6 6l12 12"
-                                  className=""
                                 ></path>
                               </svg>
                             </button>
@@ -199,11 +198,11 @@ export const Cart = () => {
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M13 7l5 5m0 0l-5 5m5-5H6"
                         />
                       </svg>
