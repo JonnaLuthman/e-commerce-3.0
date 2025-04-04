@@ -22,7 +22,7 @@ export const Products = () => {
 
   const handleOpen = () => setOpenCreate(true);
 
-  const handleUpdate = (id: number) => {
+  const handleUpdate = () => {
     // setUpdateProductId(id);
     handleOpen();
   };
@@ -98,7 +98,7 @@ export const Products = () => {
                   <td className="px-6 py-4">{product.stock}</td>
                   <td className="px-6 py-4 text-right">
                     <button
-                      onClick={() => handleUpdate(product.id)}
+                      onClick={() => handleUpdate()}
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
                       Edit
