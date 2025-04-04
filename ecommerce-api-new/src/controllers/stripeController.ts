@@ -4,6 +4,8 @@ import { STRIPE_SECRET_KEY } from "../constants/env";
 import { updateOrder, updateProductStock } from "../hooks/useOrder";
 const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
+const URL_client = 'https://e-commerce-3-0.vercel-client.app/'
+
 
 export const checkoutSession = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -13,7 +15,7 @@ export const checkoutSession = async (req: Request, res: Response): Promise<void
         const session = await stripe.checkout.sessions.create({
           line_items: order,
           mode: "payment",
-          return_url: `http://localhost:5173/order-confirmation?session_id={CHECKOUT_SESSION_ID}`,
+          return_url: `${URL_client}order-confirmation?session_id={CHECKOUT_SESSION_ID}`,
           ui_mode: "embedded",
           client_reference_id: orderId,
         });
