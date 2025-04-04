@@ -1,9 +1,9 @@
 import axios from "axios";
-import { Order, OrderCreate, OrderDetails, OrderUpdate, CreateOrderResponse } from "../types/Order";
+import { Order, OrderCreate, OrderDetails, OrderUpdate } from "../types/Order";
 import { OrderItemUpdate } from "../types/Order";
 
-const ORDER_URL = "http://localhost:3000/orders";
-const ORDERITEMS_URL = "http://localhost:3000/order-items";
+const ORDER_URL = "https://e-commerce-3-0.vercel.app/orders";
+const ORDERITEMS_URL = "https://e-commerce-3-0.vercel.app/order-items";
 
 export const fetchOrders = async (): Promise<Order[]> => {
   try {

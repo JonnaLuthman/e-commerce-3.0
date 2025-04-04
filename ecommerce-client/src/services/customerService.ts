@@ -1,6 +1,6 @@
 import { Customer, CustomerCreate, CustomerPublic } from "../types/Customer";
 import axios from "axios";
-const CUSTOMER_URL = "http://localhost:3000/customers";
+const CUSTOMER_URL = "https://e-commerce-3-0.vercel.app/customers";
 
 
 export const fetchCustomers = async (): Promise<Customer[]> => {

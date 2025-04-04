@@ -12,16 +12,14 @@ export const updateOrder = async (
     WHERE id = ?
   `;
 
-  console.log("session:", "paymentID:",session.client_reference_id, "orderID:",session.id)
     const params = [
-      "Paid",
+      'Paid',
       session.id,
-      "Received",
+      'Received',
       session.client_reference_id,
     ];
 
     await db.query<ResultSetHeader>(sql, params);
-    console.log("Order updated")
   } catch (error) {
     console.error(error);
   }
