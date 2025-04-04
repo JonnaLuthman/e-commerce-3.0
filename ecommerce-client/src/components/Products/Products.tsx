@@ -8,7 +8,7 @@ import { Pagination } from "../Pagination";
 export const Products = () => {
   const { deleteProductHandler } = useProduct();
   const { products, dispatch } = useContext(ProductContext);
-  const [updateProductId, setUpdateProductId] = useState<number | null>(null);
+  // const [updateProductId, setUpdateProductId] = useState<number | null>(null);
   const [openCreate, setOpenCreate] = useState<boolean>(false);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,7 +23,7 @@ export const Products = () => {
   const handleOpen = () => setOpenCreate(true);
 
   const handleUpdate = (id: number) => {
-    setUpdateProductId(id);
+    // setUpdateProductId(id);
     handleOpen();
   };
 
