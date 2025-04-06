@@ -1,4 +1,4 @@
-import { webhook } from '../controllers/stripeController';
+import { webhook } from '../src/controllers/stripeController';
 import { buffer } from 'micro';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
