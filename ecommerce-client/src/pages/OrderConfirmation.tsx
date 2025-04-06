@@ -1,7 +1,7 @@
 import { useOrders } from "../hooks/useOrders";
 import { useContext, useEffect, useState } from "react";
 import { Order, OrderUpdate } from "../types/Order";
-import { Link, useSearchParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { removeFromLocalStorage } from "../utils/localStorageUtils";
 import CartContext from "../contexts/CartContext";
 import { cartActionType } from "../reducers/CartReducer";
@@ -9,8 +9,7 @@ import { cartActionType } from "../reducers/CartReducer";
 export const OrderConfirmation = () => {
   const { cartDispatch } = useContext(CartContext);
   const { fetchOrderByPaymentIdHandler, updateOrderHandler } = useOrders();
-  const [searchParams] = useSearchParams();
-  const session_id = searchParams.get("session_id");
+  const { session_id } = useParams();
   const [order, setOrder] = useState<Order>();
 
   console.log("session id", session_id);
