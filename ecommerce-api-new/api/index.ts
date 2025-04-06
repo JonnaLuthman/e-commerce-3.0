@@ -1,4 +1,6 @@
 import express from "express";
+import bodyParser from 'body-parser';
+import { webhook } from "../src/controllers/stripeController";
 import {connectDB} from "../src/config/db";
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -7,6 +9,12 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import dotenv from 'dotenv';
 dotenv.config();
 const app = express();
+
+app.post(
+  "/stripe/webhook",
+  bodyParser.raw({ type: "application/json" }),
+  webhook
+);
 
 // Middleware
 app.use(express.json())
