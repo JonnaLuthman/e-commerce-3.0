@@ -3,7 +3,7 @@ import { useOrders } from "../../hooks/useOrders";
 import OrderContext from "../../contexts/OrderContext";
 import { ActionType } from "../../reducers/OrderReducer";
 import { Link } from "react-router";
-import { Pagination } from "../Pagination";
+import { Pagination } from "../../utils/Pagination";
 
 export const Orders = () => {
   const { orders, dispatch } = useContext(OrderContext);
@@ -82,13 +82,13 @@ export const Orders = () => {
             </tr>
           </tbody>
         ))}
-        </table>
-        <Pagination
-          itemsPerPage={orderPerPage}
-          totalItems={orders.length}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
+      </table>
+      <Pagination
+        itemsPerPage={orderPerPage}
+        totalItems={orders.length}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 };
