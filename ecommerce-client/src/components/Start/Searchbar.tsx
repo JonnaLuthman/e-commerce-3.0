@@ -1,55 +1,50 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { googleSearch } from "../../services/googleSearchService";
-import { ISearchResult } from "../../types/SearchResult";
+import { SearchResult } from "../../types/SearchResult";
 import ProductContext from "../../contexts/ProductContext";
-import { Product } from "../../types/Product";
 import { Link } from "react-router";
+import { Product } from "../../types/Product";
+import { getMatchedProducts } from "../../utils/matchProducts";
 
 export const Searchbar = () => {
   const { products } = useContext(ProductContext);
   const [searchParam, setSearchParam] = useState<string>("");
-  const [searchResult, setSearchResult] = useState<ISearchResult[] | null>(
-    null
-  );
+  const [searchResult, setSearchResult] = useState<SearchResult[] | null>(null);
   const [matchedProducts, setMatchedProducts] = useState<Product[] | null>(
     null
   );
+  const [unmatchedResults, setUnmatchedResults] = useState<SearchResult[] | null>(
+    null
+  );
 
-  const cleanText = (text: string) =>
-    text
-      .toLowerCase()
-      .replace(/[^\w\s]/gi, "")
-      .replace(/\s+/g, " ")
-      .trim();
-
-  useEffect(() => {
-    if (!searchResult || !products) return;
-
-    const matchedProducts = products.filter((product) => {
-      const nameWords = cleanText(product.name)
-        .split(" ")
-        .filter((word) => word.length > 2);
-
-      return searchResult.some((searchItem) => {
-        const title = cleanText(searchItem.title || searchItem.htmlTitle || "");
-        const commonWords = nameWords.filter((word) => title.includes(word));
-        return commonWords.length >= 2;
-      });
-    });
-
-    console.log("Matched products:", matchedProducts);
-    setMatchedProducts(matchedProducts);
-  }, [searchResult, products]);
-
+  
   const handleSearch = async (e: FormEvent) => {
     e.preventDefault();
-
-    const response = await googleSearch(searchParam);
-    console.log(response.items);
-    if (response.items) {
-      setSearchResult(response.items);
+    
+    try {
+      const response = await googleSearch(searchParam);
+      if (response.items) {
+        setSearchResult(response.items);
+      }
+    } catch (error) {
+      console.log("Could not fetch products from Google search API ")
+    } finally {
+      setSearchParam("")
     }
   };
+  
+  useEffect(() => {
+    if (!searchResult || searchResult.length === 0) {
+      setMatchedProducts([]);
+      return;
+    }
+
+    const { matchedProducts, unmatchedResults } = getMatchedProducts(products, searchResult)
+    setMatchedProducts(matchedProducts);
+    setUnmatchedResults(unmatchedResults);
+    console.log(searchResult)
+    console.log(matchedProducts)
+  }, [searchResult, products]) 
 
   return (
     <div>
@@ -97,13 +92,26 @@ export const Searchbar = () => {
           </button>
         </div>
       </form>
-      {matchedProducts &&
-        matchedProducts.map((product) => (
-          <div key={product.id}>
-            <p>{product.name}</p>
-            <Link to={`/product/${product.id}`}>{product.name}</Link>
+
+      {unmatchedResults &&
+        unmatchedResults.map((searchItem) => (
+          <div key={searchItem.htmlTitle}>
+            <p>{searchItem.htmlTitle}</p>
+            <p>Product not available</p>
           </div>
         ))}
+
+      {
+      // matchedProducts?.length === 0 ? (
+      //   <p>No products found</p>
+      // ) : (
+        matchedProducts?.map((product) => (
+          <div key={product.id}>
+            <Link to={`/product/${product.id}`}>{product.name}</Link>
+          </div>
+        ))
+      // )
+      }
     </div>
   );
 };

@@ -1,4 +1,4 @@
-export interface ISearchResult {
+export type SearchResult = {
     displayLink: string;
     formattedUrl: string;
     htmlFormattedUrl: string;
