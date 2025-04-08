@@ -116,8 +116,8 @@ export const OrderDetailsPage = () => {
     return (
         <>
             <button onClick={() => navigate("/admin")}>Back to All Orders</button>
-            <section className="order-details-wrapper">
-                <div className="order-main">
+            <section className="">
+                <div className="">
                     <p><b>Order number:</b> {id}</p>
                     {selectedEditSection === "order"
                         ? (

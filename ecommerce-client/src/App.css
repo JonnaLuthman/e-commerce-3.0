@@ -1,11 +1,9 @@
 @import "tailwindcss";
 
 #root {
-  max-width: 1200px;
   margin: 0 auto;
   height: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
-
 }

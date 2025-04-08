@@ -137,42 +137,11 @@ export const Cart = () => {
                         </div>
                       </li>
                     </ul>
-
-                    // <div key={cartItem.product.id} className="cart-wrapper">
-                    //   <h3>{cartItem.product.name}</h3>
-                    //   <div className="cart-item">
-                    //     <button
-                    //       onClick={() =>
-                    //         cartItem.product.id !== null &&
-                    //         handleChangeQuantity(cartItem.product, 1)
-                    //       }
-                    //     >
-                    //       +
-                    //     </button>
-                    //     <p>x {cartItem.quantity}</p>
-                    //     <button
-                    //       onClick={() =>
-                    //         cartItem.product.id !== null &&
-                    //         handleChangeQuantity(cartItem.product, -1)
-                    //       }
-                    //     >
-                    //       -
-                    //     </button>
-                    //     <p>{cartItem.product.price} sek</p>
-                    //     <button
-                    //       onClick={() => handleRemoveFromCart(cartItem.product)}
-                    //       className="bg-red-700 text-white"
-                    //     >
-                    //       Remove
-                    //     </button>
-                    //   </div>
-                    // </div>
                   ))}
 
                   <button onClick={handleResetCart}>Reset Cart</button>
 
                   <div>
-                    {/* <h3>Bag total</h3> */}
                     <div className="mt-6 flex items-center justify-between">
                       <p className="text-sm font-medium text-gray-900">Total</p>
                       <p className="text-2xl font-semibold text-gray-900">
@@ -182,7 +151,6 @@ export const Cart = () => {
                         {totalSum}
                       </p>
                     </div>
-                    {/* <p>Total: {totalSum} kr</p> */}
                   </div>
 
                   <div className="mt-6 text-center">
@@ -208,10 +176,6 @@ export const Cart = () => {
                       </svg>
                     </button>
                   </div>
-
-                  {/* <button onClick={() => setPhase(checkoutPhases.second)}>
-                Checkout
-              </button> */}
                 </div>
               </div>
             </div>

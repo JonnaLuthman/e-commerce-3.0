@@ -3,7 +3,7 @@ import { ActionType } from "../../reducers/CustomerReducer";
 import { CreateProduct } from "./CreateProduct";
 import ProductContext from "../../contexts/ProductContext";
 import { useContext, useState } from "react";
-import { Pagination } from "../Pagination";
+import { Pagination } from "../../utils/Pagination";
 
 export const Products = () => {
   const { deleteProductHandler } = useProduct();
