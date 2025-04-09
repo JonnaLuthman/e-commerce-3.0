@@ -6,7 +6,6 @@ import OrderContext from "../contexts/OrderContext";
 import { ActionType } from "../reducers/OrderReducer";
 import {
   CustomerDetails,
-  UserDetails,
 } from "../components/Orders/OrderDetails/CustomerDetails";
 import { OrderInfo } from "../components/Orders/OrderDetails/OrderInfo";
 import { OrderProducts } from "../components/Orders/OrderDetails/OrderProducts";
@@ -58,21 +57,7 @@ export const OrderDetailsPage = () => {
   }, [id]);
 
   const {
-    customer_id,
-    total_price,
-    payment_status,
-    payment_id,
-    order_status,
     created_at,
-    customer_firstname,
-    customer_lastname,
-    customer_email,
-    customer_phone,
-    customer_street_address,
-    customer_postal_code,
-    customer_city,
-    customer_country,
-    order_items,
   } = orderDetails;
 
   const handleUpdate = (e: ChangeEvent<HTMLSelectElement>) => {
