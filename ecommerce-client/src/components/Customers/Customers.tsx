@@ -49,7 +49,7 @@ export const Customers = () => {
       </div>
       <div className="relative overflow-x-auto shadow-md ">
       <table className="w-auto text-sm text-left rtl:text-right mx-[5rem] border border-gray-300 ">
-        <caption className="p-5 text-lg font-semibold text-left rtl:text-right bg-white border-l border-t border-r border-gray-300 mt-[2rem]">
+        <caption className="p-5 text-lg font-semibold text-left rtl:text-right bg-white border-l border-t border-r border-gray-300">
             Customers
           </caption>
           <thead className="text-xs uppercase bg-gray-100 ">

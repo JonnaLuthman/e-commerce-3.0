@@ -45,7 +45,7 @@ export const CreateCustomer = () => {
     return (
         <>
             {!showCreateCustomer
-                ? <button onClick={() => { setShowCreateCustomer(true) }} className="flex items-center justify-center rounded-full border px-5 py-2.5  hover:bg-[var(--primary-btn-color)] hover:text-[var(--primary-btn-text)]">Create Customer</button>
+                ? <button onClick={() => { setShowCreateCustomer(true) }} className="flex items-center justify-start rounded-full border px-5 py-2.5 my-6 hover:bg-[var(--primary-btn-color)] hover:text-[var(--primary-btn-text)]">Create Customer</button>
                 : (
                     <>
                         <h2>Create Customer</h2>

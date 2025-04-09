@@ -49,7 +49,7 @@ export const Cart = () => {
           <div>
             <p>Your bag is empty</p>
             <Link to={"/"}>
-              <button className="items-center justify-center rounded-lg text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 my-6">
+              <button className="items-center justify-center rounded-full border px-5 py-2.5 my-6 bg-[var(--primary-btn-color)] text-[var(--primary-btn-text)] hover:bg-[var(--primary-bg-color)] hover:text-[var(--primary-btn-color)]">
                 Find our products here
               </button>
             </Link>

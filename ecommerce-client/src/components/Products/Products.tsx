@@ -47,7 +47,7 @@ export const Products = () => {
         <div className="flex justify-center">
         <button
           onClick={handleCreate}
-          className="flex items-center justify-center rounded-full border px-5 py-3 hover:bg-[var(--primary-btn-color)] hover:text-[var(--primary-btn-text)]"
+          className="flex items-center justify-center rounded-full border m-6 px-5 py-2.5 hover:bg-[var(--primary-btn-color)] hover:text-[var(--primary-btn-text)]"
         >
           Create new product
         </button>
@@ -56,7 +56,7 @@ export const Products = () => {
 
         <div className="relative overflow-x-auto shadow-md">
         <table className="w-auto text-sm text-left rtl:text-right mx-[5rem] border border-gray-300">
-        <caption className="p-5 text-lg font-semibold text-left rtl:text-right bg-white border-l border-t border-r border-gray-300 mt-[2rem]">
+        <caption className="p-5 text-lg font-semibold text-left rtl:text-right bg-white border-l border-t border-r border-gray-300">
               Products
             </caption>
             <thead className="text-xs uppercase bg-gray-100 ">
