@@ -4,7 +4,6 @@ import { Searchbar } from "../components/Start/Searchbar";
 export const HomePage = () => {
   return (
     <>
-      <Searchbar />
       <DisplayProducts />
     </>
   );

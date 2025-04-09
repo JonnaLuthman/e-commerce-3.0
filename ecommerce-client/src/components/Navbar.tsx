@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { NavLink } from "react-router";
 import CartContext from "../contexts/CartContext";
 import { CheckoutContext, checkoutPhases } from "../contexts/CheckoutContext";
+import { Searchbar } from "./Start/Searchbar";
 
 export const Navbar = () => {
   const { cartQuantity } = useContext(CartContext);
@@ -33,6 +34,9 @@ export const Navbar = () => {
               </NavLink>
             </li>
           </div>
+          <li className="w-full">
+          <Searchbar/>
+          </li>
           <li>
             <NavLink className="color-black" to={"/checkout"}>
               <button

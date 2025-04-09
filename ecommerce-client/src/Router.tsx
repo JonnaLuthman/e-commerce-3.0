@@ -7,6 +7,7 @@ import { AdminPage } from "./pages/AdminPage";
 import { Checkout } from "./pages/Checkout";
 import { OrderDetailsPage } from "./pages/OrderDetailsPage";
 import { OrderConfirmation } from "./pages/OrderConfirmation";
+import { SearchResults } from "./pages/SearchResults";
 
 export const router = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
             {
                 path: "/order-confirmation/:session_id",
                 element: <OrderConfirmation />
+            },
+            {
+                path: "/search",
+                element: <SearchResults />
             }
         ]
 
