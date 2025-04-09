@@ -80,7 +80,7 @@ export const Searchbar = () => {
             type="search"
             id="default-search"
             className="block w-full p-4 ps-10 text-sm text-gray-900 border bg-white border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Sök produkt"
+            placeholder="Find product"
             required
           />
           <button

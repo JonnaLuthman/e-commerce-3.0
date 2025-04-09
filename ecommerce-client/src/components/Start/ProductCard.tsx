@@ -20,7 +20,7 @@ const ProductCard = ({ product }: ShowProductCardProps) => {
   };
 
   return (
-    <section className="h-[70vh] flex flex-col border-b border-r bg-[#dfe0df]">
+    <section className="group h-[70vh] flex flex-col border-b border-r bg-[var(--secondary-color)]">
       <div className="flex-1 bg-white">
         <Link
           to={`/product/${id}`}
@@ -38,12 +38,12 @@ const ProductCard = ({ product }: ShowProductCardProps) => {
         <h2 className="text-m tracking-tight text-slate-900]">{name}</h2>
           <p className="text-m font-bold text-slate-900">{price} sek</p>
         </div>
-      <button
-        className="mt-auto px-5 py-2.5 text-center text-sm font-medium text-[#e0dfdf] hover:bg-black cursor-pointer h-[3rem]"
-        onClick={() => handleAddToCart(product, 1)}
-      >
-        Add to cart
-      </button>
+        <button
+  className="mt-auto px-5 py-2.5 text-center text-sm font-medium text-[var(--secondary-color)] bg-[var(--btn-bg-color)] group-hover:bg-[var(--primary-btn-color)] transition-all duration-300 ease-in-out h-[3rem] cursor-pointer"
+  onClick={() => handleAddToCart(product, 1)}
+>
+  Add to cart
+</button>
     </section>
   );
 };

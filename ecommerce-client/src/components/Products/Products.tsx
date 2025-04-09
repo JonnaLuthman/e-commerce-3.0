@@ -44,20 +44,22 @@ export const Products = () => {
       {openCreate ? (
         <CreateProduct handleClose={() => setOpenCreate(false)} />
       ) : (
+        <div className="flex justify-center">
         <button
           onClick={handleCreate}
-          className="rounded-lg text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+          className="flex items-center justify-center rounded-full border px-5 py-3 hover:bg-[var(--primary-btn-color)] hover:text-[var(--primary-btn-text)]"
         >
           Create new product
         </button>
+        </div>
       )}
-      <section id="product-list" className="products-wrapper">
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+
+        <div className="relative overflow-x-auto shadow-md">
+        <table className="w-auto text-sm text-left rtl:text-right mx-[5rem] border border-gray-300">
+        <caption className="p-5 text-lg font-semibold text-left rtl:text-right bg-white border-l border-t border-r border-gray-300 mt-[2rem]">
               Products
             </caption>
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead className="text-xs uppercase bg-gray-100 ">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Id
@@ -80,14 +82,17 @@ export const Products = () => {
                 <th scope="col" className="px-6 py-3">
                   <span className="sr-only">Edit</span>
                 </th>
+                <th scope="col" className="px-6 py-3">
+                  <span className="sr-only">Edit</span>
+                </th>
               </tr>
             </thead>
             {currentProducts.map((product) => (
               <tbody key={product.id}>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr className="bg-white border-t border-gray-300">
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                   >
                     {product.id}
                   </th>
@@ -99,13 +104,15 @@ export const Products = () => {
                   <td className="px-6 py-4 text-right">
                     <button
                       onClick={() => handleUpdate()}
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      className="block font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
                       Edit
                     </button>
+                    </td>
+                    <td className="px-6 py-4 text-right">
                     <button
                       onClick={() => handleDelete(product.id)}
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      className="block font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
                       Delete
                     </button>
@@ -121,7 +128,6 @@ export const Products = () => {
             currentPage={currentPage}
           />
         </div>
-      </section>
     </div>
   );
 };

@@ -28,20 +28,20 @@ export const ProductPage = () => {
             </div>
 
             <div className="mt-6 sm:mt-8 lg:mt-0">
-              <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
+              <h1 className="text-xl font-semibold text-[var(--text-dark) sm:text-2xl">
                 {product?.name}
               </h1>
-              <p className="mb-6 text-gray-500 dark:text-gray-400">
+              <p className="mb-6 text-[var(--text-dark)">
                 {product?.description}
               </p>
               <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
-                <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
+                <p className=" text-[var(--text-dark) sm:text-3xl">
                   {product?.price} sek
                 </p>
               </div>
               <button
               onClick={() => {handleAddToCart(product!, 1)}}
-                className="text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
+                className="text-[var(--text-dark) mt-6 sm:mt-4 hover: flex items-center justify-center py-2.5 hover:underline"
               >
                 <svg
                   className="w-8 h-8 -ms-2 me-2"
@@ -62,14 +62,14 @@ export const ProductPage = () => {
                 </svg>
                 Add to cart
               </button>
+              <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
 
               <Link to={"/"}>
                 <button
-                className="flex items-center justify-center rounded-lg text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                className="flex items-center justify-center rounded-full border px-5 py-2.5 hover:bg-[var(--third-color)] hover:text-[var(--text-dark)]"
                 >Back to products</button>
               </Link>
 
-              <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
             </div>
           </div>
 
