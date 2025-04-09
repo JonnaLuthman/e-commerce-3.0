@@ -40,7 +40,7 @@ export const Cart = () => {
     0
   );
   return (
-    <section className="h-screen py-12 sm:py-16 lg:py-20">
+    <section className="py-12 sm:py-16 lg:py-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center">
           <h2 className="text-2xl font-semibold">Cart</h2>
@@ -49,11 +49,12 @@ export const Cart = () => {
           <div>
             <p>Your bag is empty</p>
             <Link to={"/"}>
-              <button className="items-center justify-center rounded-lg text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 my-6">Find our products here</button>
+              <button className="items-center justify-center rounded-lg text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 my-6">
+                Find our products here
+              </button>
             </Link>
           </div>
         ) : (
-
           <div className="mx-auto mt-8 max-w-2xl md:mt-12">
             <div className="bg-white shadow">
               <div className="px-4 py-6 sm:px-8 sm:py-10">
@@ -89,7 +90,7 @@ export const Cart = () => {
                                       cartItem.product.id !== null &&
                                       handleChangeQuantity(cartItem.product, -1)
                                     }
-                                    className="flex items-center justify-center rounded-l-md bg-gray-200 px-4 transition hover:bg-black hover:text-white"
+                                    className="flex items-center justify-center rounded-l-md bg-[var(--third-color)] px-4 transition hover:bg-[var(--primary-btn-color)] hover:text-white"
                                   >
                                     -
                                   </button>
@@ -101,7 +102,7 @@ export const Cart = () => {
                                       cartItem.product.id !== null &&
                                       handleChangeQuantity(cartItem.product, 1)
                                     }
-                                    className="flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white"
+                                    className="flex items-center justify-center rounded-r-md bg-[var(--third-color)] px-4 transition hover:bg-[var(--primary-btn-color)] hover:text-[var(--primary-btn-text)]"
                                   >
                                     +
                                   </button>
@@ -116,7 +117,7 @@ export const Cart = () => {
                                 handleRemoveFromCart(cartItem.product)
                               }
                               type="button"
-                              className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900"
+                              className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900 "
                             >
                               <svg
                                 className="h-5 w-5"
@@ -139,7 +140,12 @@ export const Cart = () => {
                     </ul>
                   ))}
 
-                  <button onClick={handleResetCart}>Reset Cart</button>
+                  <button
+                    onClick={handleResetCart}
+                    className="flex items-center justify-center rounded-md px-3 py-3 my-[2rem] font-semibold bg-[var(--primary-btn-color)] text-[var(--primary-btn-text)] hover:bg-[var(--third-color)] hover:text-[var(--primary-btn-color)]"
+                  >
+                    Empty cart
+                  </button>
 
                   <div>
                     <div className="mt-6 flex items-center justify-between">
@@ -157,7 +163,7 @@ export const Cart = () => {
                     <button
                       onClick={() => setPhase(checkoutPhases.second)}
                       type="button"
-                      className="group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
+                      className="group inline-flex w-full items-center justify-center rounded-md bg-[var(--primary-btn-color)] px-6 py-4 text-lg font-semibold text-[var(--primary-btn-text)] transition-all duration-200 ease-in-out focus:shadow "
                     >
                       Checkout
                       <svg

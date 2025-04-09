@@ -30,7 +30,7 @@ export const Checkout = () => {
 
   console.log(phase);
   return (
-    <div>
+    <div className=" my-12 mx-20 p-3">
       <CustomerProvider>{renderCheckout()}</CustomerProvider>
     </div>
   );

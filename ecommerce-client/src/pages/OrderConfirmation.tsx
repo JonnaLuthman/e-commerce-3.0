@@ -58,16 +58,16 @@ export const OrderConfirmation = () => {
 
   return (
     <div>
-      <section className=" py-8 antialiased md:py-16">
+      <section className="py-8 md:py-16">
         <div className="mx-auto max-w-2xl px-4 2xl:px-0">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-2">
+          <h2 className="text-xl font-semibold text-[var(--text-dark)] sm:text-2xl mb-2">
             Thanks for your order!
           </h2>
           <p className="text-gray-500 dark:text-gray-400 mb-6 md:mb-8">
             Your order{" "}
             <a
               href="#"
-              className="font-medium text-gray-900 dark:text-white hover:underline"
+              className="font-medium text-[var(--text-dark)] hover:underline"
             >
               {order?.id}
             </a>{" "}
@@ -79,7 +79,7 @@ export const OrderConfirmation = () => {
               <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
                 Name
               </dt>
-              <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
+              <dd className="font-medium text-[var(--text-dark)] sm:text-end">
                 {order?.customer_firstname} {order?.customer_lastname}
               </dd>
             </dl>
@@ -87,7 +87,7 @@ export const OrderConfirmation = () => {
               <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
                 Address
               </dt>
-              <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
+              <dd className="font-medium text-[var(--text-dark)] sm:text-end">
                 {order?.customer_street_address}, {order?.customer_postal_code}{" "}
                 {order?.customer_city}, {order?.customer_firstname}{" "}
                 {order?.customer_country}
@@ -97,7 +97,7 @@ export const OrderConfirmation = () => {
               <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
                 Phone
               </dt>
-              <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
+              <dd className="font-medium text-[var(--text-dark)] sm:text-end">
                 {order?.customer_phone}
               </dd>
             </dl>
@@ -105,7 +105,7 @@ export const OrderConfirmation = () => {
               <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
                 Email
               </dt>
-              <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
+              <dd className="font-medium text-[var(--text-dark)] sm:text-end">
                 {order?.customer_email}
               </dd>
             </dl>
