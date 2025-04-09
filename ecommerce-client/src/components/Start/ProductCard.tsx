@@ -20,30 +20,29 @@ const ProductCard = ({ product }: ShowProductCardProps) => {
   };
 
   return (
-    <section className="group h-[70vh] flex flex-col border-b border-r bg-[var(--secondary-color)]">
-      <div className="flex-1 bg-white">
+    <section className="group flex flex-col border-b border-r bg-[var(--secondary-color)] ">
+      <div className="flex-1 bg-white ">
         <Link
           to={`/product/${id}`}
-          className="relative mx-3 mt-3 flex h-60 overflow-hidden"
+          className="relative mx-3 mt-3 flex overflow-hidden "
         >
           <img
-            className="flex-1 peer absolute top-0 right-0 h-full w-full object-cover"
+            className="w-full object-contain min-h-[40vh]"
             src={image}
             alt={name}
-            width="282"
           />
         </Link>
       </div>
       <div className="h-[8rem] py-[1.5rem]">
         <h2 className="text-m tracking-tight text-slate-900]">{name}</h2>
-          <p className="text-m font-bold text-slate-900">{price} sek</p>
-        </div>
-        <button
-  className="mt-auto px-5 py-2.5 text-center text-sm font-medium text-[var(--secondary-color)] bg-[var(--btn-bg-color)] group-hover:bg-[var(--primary-btn-color)] transition-all duration-300 ease-in-out h-[3rem] cursor-pointer"
-  onClick={() => handleAddToCart(product, 1)}
->
-  Add to cart
-</button>
+        <p className="text-m font-bold text-slate-900">{price} sek</p>
+      </div>
+      <button
+        className="mt-auto px-5 py-2.5 text-center text-sm font-medium text-[var(--secondary-color)] bg-[var(--btn-bg-color)] group-hover:bg-[var(--primary-btn-color)] transition-all duration-300 ease-in-out h-[3rem] cursor-pointer"
+        onClick={() => handleAddToCart(product, 1)}
+      >
+        Add to cart
+      </button>
     </section>
   );
 };

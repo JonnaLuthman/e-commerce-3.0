@@ -21,13 +21,13 @@ export const ProductPage = () => {
 
   return (
     <>
-      <section className="py-8 md:py-16 antialiased">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16 text-left">
-            <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
-              <img className="w-full dark:hidden bg-white" src={product?.image} alt="" />
+      <section className="antialiased">
+          <div className="grid grid-cols-2 text-left my-12">
+            <div className="shrink-0 max-w-md lg:max-w-lg mx-auto border-gray-600 border">
+              <img className="w-full object-contain" src={product?.image} alt="" />
             </div>
 
-            <div className="mt-6 sm:mt-8 lg:mt-0">
+            <div className="mt-6 sm:mt-8 lg:mt-0 p-6">
               <h1 className="text-xl font-semibold text-[var(--text-dark) sm:text-2xl">
                 {product?.name}
               </h1>
@@ -41,7 +41,7 @@ export const ProductPage = () => {
               </div>
               <button
               onClick={() => {handleAddToCart(product!, 1)}}
-                className="text-[var(--text-dark) mt-6 sm:mt-4 hover: flex items-center justify-center py-2.5 hover:underline"
+                className="text-[var(--text-dark) mt-10 sm:mt-4 hover: flex items-center justify-center py-2 rounded-full border px-5 py-2.5 hover:bg-[var(--third-color)] hover:text-[var(--text-dark)]"
               >
                 <svg
                   className="w-8 h-8 -ms-2 me-2"
