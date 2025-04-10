@@ -7,11 +7,13 @@ import ProductContext from "../../contexts/ProductContext";
 
 interface IUpdateProductProps {
   productId: number;
-  setUpdateProductId: (id: number | null) => void;
+  setEditingProductId: (id: number | null) => void;
 }
 
 export const UpdateProduct = (props: IUpdateProductProps) => {
-  const [updatedProduct, setUpdatedProduct] = useState<Product>({
+  const { updateProductHandler, fetchProductByIdHandler } = useProduct();
+  const { dispatch } = useContext(ProductContext);
+  const [product, setProduct] = useState<Product>({
     id: 0,
     name: "",
     description: "",
@@ -21,8 +23,6 @@ export const UpdateProduct = (props: IUpdateProductProps) => {
     image: "",
     created_at: "",
   });
-  const { dispatch } = useContext(ProductContext);
-  const { updateProductHandler, fetchProductByIdHandler } = useProduct();
 
   useEffect(() => {
     if (!props.productId) return;
@@ -30,7 +30,7 @@ export const UpdateProduct = (props: IUpdateProductProps) => {
     const fetchData = async () => {
       const data = await fetchProductByIdHandler(props.productId);
       if (data) {
-        setUpdatedProduct(data);
+        setProduct(data);
       }
     };
 
@@ -39,13 +39,13 @@ export const UpdateProduct = (props: IUpdateProductProps) => {
 
   const handleBackClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    props.setUpdateProductId(null);
+    props.setEditingProductId(null);
   };
 
   const handleChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setUpdatedProduct((prevProduct) => {
+    setProduct((prevProduct) => {
       if (!prevProduct) return prevProduct;
       return { ...prevProduct, [name]: value };
     });
@@ -53,129 +53,90 @@ export const UpdateProduct = (props: IUpdateProductProps) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!updatedProduct) return;
-    await updateProductHandler(updatedProduct.id, updatedProduct);
+    if (!product) return;
+    await updateProductHandler(product.id, product);
     dispatch({
       type: ActionType.UPDATED,
-      payload: JSON.stringify(updatedProduct),
+      payload: JSON.stringify(product),
     });
-    props.setUpdateProductId(null)
+    props.setEditingProductId(null)
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "rgba(255, 255, 255, 0.05)",
-        padding: "20px",
-        borderRadius: "8px",
-        maxWidth: "500px",
-        margin: "auto",
-      }}
-    >
-      <h2
-        style={{ textAlign: "center", marginBottom: "15px", fontSize: "1.8em" }}
-      >
-        Update Product
-      </h2>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-      >
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          onChange={handleChange}
-          value={updatedProduct?.name}
-          required
-          style={{
-            padding: "8px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        />
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={updatedProduct?.description}
-          onChange={handleChange}
-          required
-          style={{
-            padding: "8px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            height: "80px",
-          }}
-        />
-        <input
-          type="text"
-          name="price"
-          placeholder="Price"
-          value={updatedProduct?.price}
-          onChange={handleChange}
-          required
-          style={{
-            padding: "8px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        />
-        <input
-          type="text"
-          name="stock"
-          placeholder="Stock"
-          value={updatedProduct?.stock}
-          onChange={handleChange}
-          required
-          style={{
-            padding: "8px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        />
-        <input
-          type="text"
-          name="category"
-          placeholder="Category"
-          value={updatedProduct?.category}
-          onChange={handleChange}
-          required
-          style={{
-            padding: "8px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        />
-        <input
-          type="text"
-          name="image"
-          placeholder="Image URL"
-          value={updatedProduct?.image}
-          onChange={handleChange}
-          required
-          style={{
-            padding: "8px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        />
-        <button
-          onClick={(e) => {
-            handleBackClick(e);
-          }}
-        >
-          Back
-        </button>
-        <button
-          type="submit"
-          style={{
-            backgroundColor: "#4CAF50",
-            color: "white",
-            marginTop: "10px",
-          }}
-        >
-          Update Product
-        </button>
+    <div className="bg-white p-8 rounded-lg max-w-4xl mx-auto w-full">
+      <h2 className="text-xl font-semibold mb-6">Update product</h2>
+      <form onSubmit={handleSubmit} className="flex flex-wrap gap-4 w-full">
+            <input
+              className="flex-1 w-full min-w-[50%] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="name"
+              placeholder="Product title"
+              required
+              defaultValue={product.name}
+            />
+
+            <input
+              className="flex-1 w-full min-w-[50%] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="description"
+              placeholder="Description"
+              required
+              defaultValue={product.description}
+            />
+            <input
+              className="flex-1 w-full min-w-[50%] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="price"
+              placeholder="Price"
+              required
+              defaultValue={product.price === 0 ? "" : product.price}
+            />
+            <input
+              className="flex-1 w-full min-w-[50%] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="stock"
+              placeholder="Stock"
+              required
+              defaultValue={product.stock === 0 ? "" : product.stock}
+            />
+            <input
+              className="flex-1 w-full min-w-[50%] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="category"
+              placeholder="Category"
+              required
+              defaultValue={product.category}
+            />
+            <input
+              className="flex-1 w-full min-w-[50%] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="image"
+              placeholder="Image URL"
+              required
+              defaultValue={product.image}
+            />
+
+        <div className="w-full flex justify-between mt-6">
+          <button
+            type="button"
+            onClick={handleBackClick}
+            className="px-6 py-3 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+          >
+            Back
+          </button>
+          <button
+            type="submit"
+            className="px-6 py-3 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+          >
+            Update product
+          </button>
+        </div>
       </form>
     </div>
   );

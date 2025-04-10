@@ -68,7 +68,6 @@ export const CreateCustomer = () => {
                         </form> */}
           <div className="flex flex-wrap bg-white border border-gray-300 p-8 rounded-lg max-w-4xl mx-auto my-6">
             <h2 className="text-2xl font-semibold mb-6">Create Customer</h2>
-
             <form
               onSubmit={handleSubmit}
               className="flex flex-wrap gap-4 w-full"

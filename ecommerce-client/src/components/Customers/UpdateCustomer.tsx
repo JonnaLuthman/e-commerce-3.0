@@ -67,7 +67,7 @@ export const UpdateCustomer = ({
 
       <form onSubmit={handleSubmit} className="flex flex-wrap gap-4 w-full">
         <input
-          className="flex-1 w-full min-w-[250px] p-4 border border-gray-300 rounded"
+          className="flex-1 w-full min-w-[45%] p-4 border-b border-gray-300 rounded"
           onChange={handleChange}
           type="text"
           name="firstname"
@@ -75,7 +75,7 @@ export const UpdateCustomer = ({
           defaultValue={customer.firstname}
         />
         <input
-          className="flex-1 w-full min-w-[250px] p-4 border border-gray-300 rounded"
+          className="flex-1 w-full min-w-[45%] p-4 border-b border-gray-300 rounded"
           onChange={handleChange}
           type="text"
           name="lastname"
@@ -83,7 +83,7 @@ export const UpdateCustomer = ({
           defaultValue={customer.lastname}
         />
         <input
-          className="flex-1 w-full min-w-[250px] p-4 border border-gray-300 rounded"
+          className="flex-1 w-full min-w-[45%] p-4 border-b border-gray-300 rounded"
           onChange={handleChange}
           type="email"
           name="email"
@@ -91,7 +91,7 @@ export const UpdateCustomer = ({
           defaultValue={customer.email}
         />
         <input
-          className="flex-1 w-full min-w-[250px] p-4 border border-gray-300 rounded"
+          className="flex-1 w-full min-w-[45%] p-4 border-b border-gray-300 rounded"
           onChange={handleChange}
           type="password"
           name="password"
@@ -99,7 +99,7 @@ export const UpdateCustomer = ({
           defaultValue={customer.password}
         />
         <input
-          className="flex-1 w-full min-w-[250px] p-4 border border-gray-300 rounded"
+          className="flex-1 w-full min-w-[45%] p-4 border-b border-gray-300 rounded"
           onChange={handleChange}
           type="tel"
           name="phone"
@@ -107,7 +107,7 @@ export const UpdateCustomer = ({
           defaultValue={customer.phone}
         />
         <input
-          className="flex-1 w-full min-w-[250px] p-4 border border-gray-300 rounded"
+          className="flex-1 w-full min-w-[45%] p-4 border-b border-gray-300 rounded"
           onChange={handleChange}
           type="text"
           name="street_address"
@@ -115,7 +115,7 @@ export const UpdateCustomer = ({
           defaultValue={customer.street_address}
         />
         <input
-          className="flex-1 w-full min-w-[250px] p-4 border border-gray-300 rounded"
+          className="flex-1 w-full min-w-[45%] p-4 border-b border-gray-300 rounded"
           onChange={handleChange}
           type="text"
           name="postal_code"
@@ -123,7 +123,7 @@ export const UpdateCustomer = ({
           defaultValue={customer.postal_code}
         />
         <input
-          className="flex-1 w-full min-w-[250px] p-4 border border-gray-300 rounded"
+          className="flex-1 w-full min-w-[45%] p-4 border-b border-gray-300 rounded"
           onChange={handleChange}
           type="text"
           name="city"
@@ -131,7 +131,7 @@ export const UpdateCustomer = ({
           defaultValue={customer.city}
         />
         <input
-          className="flex-1 w-full min-w-[250px] p-4 border border-gray-300 rounded"
+          className="flex-1 w-full min-w-[45%] p-4 border-b border-gray-300 rounded"
           onChange={handleChange}
           type="text"
           name="country"
