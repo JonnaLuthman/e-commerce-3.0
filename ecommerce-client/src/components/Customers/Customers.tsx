@@ -48,7 +48,7 @@ export const Customers = () => {
       <CreateCustomer />
       </div>
       <div className="relative overflow-x-auto shadow-md ">
-      <table className="w-auto text-sm text-left rtl:text-right mx-[5rem] border border-gray-300 ">
+      <table className="w-auto bg-white text-sm text-left rtl:text-right mx-[5rem] border border-gray-300 ">
         <caption className="p-5 text-lg font-semibold text-left rtl:text-right bg-white border-l border-t border-r border-gray-300">
             Customers
           </caption>
@@ -82,7 +82,7 @@ export const Customers = () => {
             <tbody key={customer.id}>
               {editingCustomerId === customer.id ? (
                 <tr>
-                  <td colSpan={6}>
+                  <td colSpan={6} className="bg-white">
                     <UpdateCustomer
                       customerId={customer.id}
                       setEditingCustomerId={setEditingCustomerId}
@@ -101,8 +101,8 @@ export const Customers = () => {
                     {customer.firstname} {customer.lastname}
                   </td>
                   <td className="px-6 py-4">
-                    {customer.street_address} {customer.postal_code}{" "}
-                    {customer.city} {customer.country}
+                    {customer.street_address}, {customer.postal_code}{" "}
+                    {customer.city}, {customer.country}
                   </td>
                   <td className="px-6 py-4">{customer.email}</td>
                   <td className="px-6 py-4">{customer.phone}</td>
