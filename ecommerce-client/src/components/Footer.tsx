@@ -18,8 +18,8 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/contact-us" className=" text-[var(--secondary-color)]">
-                  Contact us
+                <Link to="/admin" className=" text-[var(--secondary-color)]">
+                  Admin
                 </Link>
               </li>
             </ul>

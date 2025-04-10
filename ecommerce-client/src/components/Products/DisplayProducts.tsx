@@ -15,7 +15,7 @@ export const DisplayProducts = () => {
 
   return (
     <>
-      <section className="grid grid-cols-2 md:grid-cols-3 border-t border-l">
+      <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 border-t border-l">
         {currentProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

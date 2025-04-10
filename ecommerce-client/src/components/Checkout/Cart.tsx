@@ -43,12 +43,12 @@ export const Cart = () => {
     <section className="py-12 sm:py-16 lg:py-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center">
-          <h2 className="text-2xl font-semibold">Cart</h2>
+          <h2 className="text-2xl font-semibold">CART</h2>
         </div>
         {totalSum === 0 ? (
           <div>
             <p>Your bag is empty</p>
-            <Link to={"/"}>
+            <Link to={"/products"}>
               <button className="items-center justify-center rounded-full border px-5 py-2.5 my-6 bg-[var(--primary-btn-color)] text-[var(--primary-btn-text)] hover:bg-[var(--primary-bg-color)] hover:text-[var(--primary-btn-color)]">
                 Find our products here
               </button>
@@ -56,7 +56,7 @@ export const Cart = () => {
           </div>
         ) : (
           <div className="mx-auto mt-8 max-w-2xl md:mt-12">
-            <div className="bg-white shadow">
+            <div className="bg-white border">
               <div className="px-4 py-6 sm:px-8 sm:py-10">
                 <div className="flow-root">
                   {cart.map((cartItem: CartItem) => (

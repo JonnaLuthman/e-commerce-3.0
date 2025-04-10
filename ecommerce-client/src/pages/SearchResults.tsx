@@ -1,4 +1,4 @@
-import ProductCard from "../components/Start/ProductCard";
+import ProductCard from "../components/Products/ProductCard";
 import { useContext } from "react";
 import { SearchContext } from "../contexts/SearchContext";
 import ProductContext from "../contexts/ProductContext";

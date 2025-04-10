@@ -1,10 +1,9 @@
-import { DisplayProducts } from "../components/Start/DisplayProducts";
-import { Searchbar } from "../components/Start/Searchbar";
+import { Banner } from "../components/Start/Banner";
 
 export const HomePage = () => {
   return (
     <>
-      <DisplayProducts />
+      <Banner />
     </>
   );
 };

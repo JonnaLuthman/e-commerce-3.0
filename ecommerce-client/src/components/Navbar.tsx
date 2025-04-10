@@ -17,7 +17,7 @@ export const Navbar = () => {
                 className="flex gap-[3rem] group transition-all duration-300 ease-in-out"
                 to={"/"}
               >
-                <span className="bg-left-bottom bg-gradient-to-r from-black to-black bg-[length:0%_0.7px] bg-no-repeat group-hover:bg-[length:100%_0.7px] transition-all duration-600 ease-out">
+                <span className="bg-left-bottom font-semibold bg-gradient-to-r from-black to-black bg-[length:0%_0.7px] bg-no-repeat group-hover:bg-[length:100%_0.7px] transition-all duration-600 ease-out">
                   HOME
                 </span>
               </NavLink>
@@ -25,10 +25,21 @@ export const Navbar = () => {
             <li>
               <NavLink
                 className="flex gap-[3rem] group transition-all duration-300 ease-in-out"
-                to={"/admin"}
+                to={"/products"}
               >
-                   <span className="bg-left-bottom bg-gradient-to-r from-black to-black bg-[length:0%_0.7px] bg-no-repeat group-hover:bg-[length:100%_0.7px] transition-all duration-600 ease-out">
-                   ADMIN
+                   <span className="bg-left-bottom font-semibold bg-gradient-to-r from-black to-black bg-[length:0%_0.7px] bg-no-repeat group-hover:bg-[length:100%_0.7px] transition-all duration-600 ease-out">
+                   PRODUCTS
+                </span>
+                
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="flex gap-[3rem] group transition-all duration-300 ease-in-out"
+                to={"/not-found"}
+              >
+                   <span className="bg-left-bottom font-semibold bg-gradient-to-r from-black to-black bg-[length:0%_0.7px] bg-no-repeat group-hover:bg-[length:100%_0.7px] transition-all duration-600 ease-out">
+                   ABOUT
                 </span>
                 
               </NavLink>
