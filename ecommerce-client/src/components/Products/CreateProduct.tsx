@@ -5,10 +5,6 @@ import { ActionType } from "../../reducers/CustomerReducer";
 import { ProductCreate } from "../../types/Product";
 import ProductContext from "../../contexts/ProductContext";
 
-interface CreateProductProps {
-  handleClose: () => void;
-}
-
 export const CreateProduct = () => {
   const { fetchProductsHandler, createProductHandler } = useProduct();
   const { dispatch } = useContext(ProductContext);

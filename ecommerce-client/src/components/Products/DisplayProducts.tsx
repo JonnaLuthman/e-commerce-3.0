@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import ProductCard from "./ProductCard";
 import ProductContext from "../../contexts/ProductContext";
 import { Pagination } from "../../utils/Pagination";
+import ProductCard from "./ProductCard";
 
 export const DisplayProducts = () => {
   const { products } = useContext(ProductContext);

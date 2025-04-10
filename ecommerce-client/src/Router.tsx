@@ -9,6 +9,7 @@ import { OrderDetailsPage } from "./pages/OrderDetailsPage";
 import { OrderConfirmation } from "./pages/OrderConfirmation";
 import { SearchResults } from "./pages/SearchResults";
 import { AllProductsPage } from "./pages/AllProductsPage";
+import { ComingSoon } from "./pages/ComingSoon";
 
 export const router = createBrowserRouter([
     {
@@ -47,6 +48,9 @@ export const router = createBrowserRouter([
             {
                 path: "/search",
                 element: <SearchResults />
+            }, {
+                path:"/about",
+                element: <ComingSoon />
             }
 
         ]

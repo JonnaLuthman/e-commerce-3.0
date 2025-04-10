@@ -6,7 +6,7 @@ export const Footer = () => {
       <footer className="w-full border-t border-solid bg-[var(--text-dark)]">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl mx-auto">
-            <ul className="text-lg flex items-center justify-center flex-col gap-7 md:flex-row md:gap-12 transition-all duration-500 py-16 mb-10 border-b border-[var(--secondary-color)]">
+            <ul className="text-lg flex items-center justify-center flex-row gap-7 md:flex-col md:gap-20 transition-all duration-500 py-16 mb-10 border-b border-[var(--secondary-color)]">
               <li>
                 <Link to="/" className="text-[var(--secondary-color)]">
                   Home

@@ -36,7 +36,7 @@ export const Navbar = () => {
             <li>
               <NavLink
                 className="flex gap-[3rem] group transition-all duration-300 ease-in-out"
-                to={"/not-found"}
+                to={"/about"}
               >
                    <span className="bg-left-bottom font-semibold bg-gradient-to-r from-black to-black bg-[length:0%_0.7px] bg-no-repeat group-hover:bg-[length:100%_0.7px] transition-all duration-600 ease-out">
                    ABOUT

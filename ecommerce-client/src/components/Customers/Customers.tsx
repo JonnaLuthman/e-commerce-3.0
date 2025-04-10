@@ -47,7 +47,7 @@ export const Customers = () => {
     <div className="flex justify-center">
       <CreateCustomer />
       </div>
-      <div className="relative overflow-x-auto shadow-md ">
+      <div className="relative overflow-x-auto shadow-md mx-auto">
       <table className="w-auto bg-white text-sm text-left rtl:text-right mx-[5rem] border border-gray-300 ">
         <caption className="p-5 text-lg font-semibold text-left rtl:text-right bg-white border-l border-t border-r border-gray-300">
             Customers
