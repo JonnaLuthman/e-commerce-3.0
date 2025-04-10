@@ -19,7 +19,7 @@ export const SearchResults = () => {
             <h1 className="text-2xl font-bold">No products found for "{searchParam}"</h1>
             <p>See our other products</p>
             <button className="my-8 rounded-full border px-5 py-3 hover:bg-[var(--primary-btn-color)] hover:text-[var(--primary-btn-text)]">
-              <Link to="/">Go back to products</Link>
+              <Link to="/products">Go back to products</Link>
               </button>
             </div>
             {products.map((product) => (

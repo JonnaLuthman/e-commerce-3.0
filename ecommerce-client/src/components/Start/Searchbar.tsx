@@ -15,7 +15,7 @@ export const Searchbar = () => {
 
   const navigate = useNavigate()
 
-  const handleSearch = async (e: FormEvent) => {
+  const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -42,7 +42,7 @@ export const Searchbar = () => {
 
   return (
     <div>
-      <form onSubmit="submit" className="grid max-w-md mx-auto">
+      <form onSubmit={handleSearch} className="grid max-w-md mx-auto">
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -78,7 +78,7 @@ export const Searchbar = () => {
             required
           />
           <button
-            onClick={handleSearch}
+            onClick={() => {}}
             type="submit"
             className="bg-white absolute end-2.5 bottom-2.5 hover:cursor-pointer focus:outline-none font-medium text-sm px-4 py-2 "
           >
