@@ -1,12 +1,21 @@
 import { useContext } from "react";
 import { NavLink } from "react-router";
 import CartContext from "../contexts/CartContext";
-import { CheckoutContext, checkoutPhases } from "../contexts/CheckoutContext";
 import { Searchbar } from "./Start/Searchbar";
+import { AddedToCart } from "./Checkout/AddedToCart";
+import { cartActionType } from "../reducers/CartReducer";
 
 export const Navbar = () => {
-  const { cartQuantity } = useContext(CartContext);
-  const { setPhase } = useContext(CheckoutContext);
+  const { cartQuantity, cartDispatch } = useContext(CartContext);
+  const { isNotificationOpen }= useContext(CartContext)
+  
+  const handleClick = () => {
+    cartDispatch({
+      type: cartActionType.OPEN_NOTIFICATION,
+      payload: null,
+    });
+  };
+  
   return (
     <div className="relative">
       <nav className="w-full bg-[var(--bg-primary-color)] border-b border-t border-black border-solid p-[2rem] color-black fixed z-1">
@@ -49,10 +58,9 @@ export const Navbar = () => {
           <Searchbar/>
           </li>
           <li>
-            <NavLink className="color-black" to={"/checkout"}>
               <button
                 className="relative cursor-pointer"
-                onClick={() => setPhase(checkoutPhases.first)}
+                onClick={handleClick}
               >
                 <svg
                   className="size-8 text-black"
@@ -69,7 +77,7 @@ export const Navbar = () => {
                   {cartQuantity}
                 </span>
               </button>
-            </NavLink>
+            {isNotificationOpen && <AddedToCart /> }
           </li>
         </ul>
       </nav>
