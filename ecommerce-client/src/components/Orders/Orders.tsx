@@ -3,7 +3,7 @@ import { useOrders } from "../../hooks/useOrders";
 import OrderContext from "../../contexts/OrderContext";
 import { ActionType } from "../../reducers/OrderReducer";
 import { Link } from "react-router";
-import { Pagination } from "../Pagination";
+import { Pagination } from "../../utils/Pagination";
 
 export const Orders = () => {
   const { orders, dispatch } = useContext(OrderContext);
@@ -28,14 +28,13 @@ export const Orders = () => {
   }, []);
 
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg"></div>
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <caption className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+    <div className="relative overflow-x-auto shadow-md ">
+      <table className="w-auto text-sm text-left rtl:text-right mx-[5rem] border  border-gray-300">
+        <caption className="p-5 text-lg font-semibold text-left rtl:text-right bg-white border-l border-t border-r border-gray-300 mt-[2rem]">
           Orders
         </caption>
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
+        <thead className="text-xs uppercase bg-gray-100 ">
+          <tr >
             <th scope="col" className="px-6 py-3">
               Order ID
             </th>
@@ -59,10 +58,10 @@ export const Orders = () => {
 
         {currentOrders.map((order) => (
           <tbody key={order.id}>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr className="bg-white border-t border-gray-300">
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
               >
                 {order.id}
               </th>
@@ -82,13 +81,13 @@ export const Orders = () => {
             </tr>
           </tbody>
         ))}
-        </table>
-        <Pagination
-          itemsPerPage={orderPerPage}
-          totalItems={orders.length}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
+      </table>
+      <Pagination
+        itemsPerPage={orderPerPage}
+        totalItems={orders.length}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 };

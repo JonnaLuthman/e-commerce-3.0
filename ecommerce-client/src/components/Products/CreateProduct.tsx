@@ -4,14 +4,11 @@ import { useProduct } from "../../hooks/useProducts";
 import { ActionType } from "../../reducers/CustomerReducer";
 import { ProductCreate } from "../../types/Product";
 import ProductContext from "../../contexts/ProductContext";
-interface CreateProductProps {
-  handleClose: () => void;
-}
 
-export const CreateProduct = ({ handleClose }: CreateProductProps) => {
-  const { fetchProductsHandler, createProductHandler } = useProduct()
-  const { dispatch } = useContext(ProductContext)
-  const [product, setProduct] = useState<ProductCreate>({
+export const CreateProduct = () => {
+  const { fetchProductsHandler, createProductHandler } = useProduct();
+  const { dispatch } = useContext(ProductContext);
+  const [newProduct, setNewProduct] = useState<ProductCreate>({
     name: "",
     description: "",
     price: 0,
@@ -20,154 +17,119 @@ export const CreateProduct = ({ handleClose }: CreateProductProps) => {
     image: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const [showCreateProduct, setShowCreateProduct] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
+    setNewProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await createProductHandler(product)
+    await createProductHandler(newProduct);
     const updatedProducts = await fetchProductsHandler();
-    console.log(updatedProducts)
+    console.log(updatedProducts);
     dispatch({
       type: ActionType.LOADED,
-      payload: JSON.stringify(updatedProducts)
-    })
-    handleClose()
+      payload: JSON.stringify(updatedProducts),
+    });
+    // handleClose()
+    setShowCreateProduct(false);
   };
 
-
   return (
-    <div
-      style={{
-        maxWidth: "500px",
-        margin: "20px auto",
-        padding: "20px",
-        backgroundColor: "rgba(255, 255, 255, 0.05)",
-        borderRadius: "8px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-      }}
-    >
-      <h2>Create new product</h2>
-      <h2 style={{ textAlign: "center", color: "#333", marginBottom: "20px" }}>
-        Create Product
-      </h2>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Product Name"
-          onChange={handleChange}
-          value={product.name}
-          required
-          style={{
-            padding: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            fontSize: "16px",
-          }}
-        />
-        <textarea
-          name="description"
-          placeholder="Product Description"
-          value={product.description}
-          onChange={handleChange}
-          required
-          style={{
-            padding: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            fontSize: "16px",
-            minHeight: "80px",
-          }}
-        />
-        <input
-          type="text"
-          name="price"
-          placeholder="Price"
-          value={product.price === 0 ? "" : product.price}
-          onChange={handleChange}
-          required
-          style={{
-            padding: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            fontSize: "16px",
-          }}
-        />
-        <input
-          type="text"
-          name="stock"
-          placeholder="Stock"
-          value={product.stock === 0 ? "" : product.stock}
-          onChange={handleChange}
-          required
-          style={{
-            padding: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            fontSize: "16px",
-          }}
-        />
-        <input
-          type="text"
-          name="category"
-          placeholder="Category"
-          value={product.category}
-          onChange={handleChange}
-          required
-          style={{
-            padding: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            fontSize: "16px",
-          }}
-        />
-        <input
-          type="text"
-          name="image"
-          placeholder="Image URL"
-          value={product.image}
-          onChange={handleChange}
-          required
-          style={{
-            padding: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            fontSize: "16px",
-          }}
-        />
+    <>
+      {!showCreateProduct ? (
         <button
-          type="submit"
-          style={{
-            color: "#fff",
-            padding: "10px",
-            border: "none",
-            borderRadius: "4px",
-            fontSize: "16px",
-            cursor: "pointer",
+          onClick={() => {
+            setShowCreateProduct(true);
           }}
-
+          className="flex items-center justify-start rounded-full border px-5 py-2.5 m-6 hover:bg-[var(--primary-btn-color)] hover:text-[var(--primary-btn-text)]"
         >
-          Create Product
+          Create product
         </button>
-        <button
-          type="submit"
-          onClick={()=> {handleClose()}}
-          style={{
-            color: "#fff",
-            padding: "10px",
-            border: "none",
-            borderRadius: "4px",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
+      ) : (
+        <div className="flex flex-wrap bg-white border border-gray-300 p-8 rounded-lg max-w-4xl mx-auto my-6">
+          <h2 className="text-2xl font-semibold mb-6">Create Product</h2>
+          <form onSubmit={handleSubmit} className="flex flex-wrap gap-4 w-full">
+            <input
+              className="flex-1 w-full min-w-[250px] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="name"
+              placeholder="Product title"
+              required
+              defaultValue={newProduct.name}
+            />
 
-        >
-          Close
-        </button>
-      </form>
-    </div>
+            <input
+              className="flex-1 w-full min-w-[250px] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="description"
+              placeholder="Description"
+              required
+              defaultValue={newProduct.description}
+            />
+            <input
+              className="flex-1 w-full min-w-[250px] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="price"
+              placeholder="Price"
+              required
+              defaultValue={newProduct.price === 0 ? "" : newProduct.price}
+            />
+            <input
+              className="flex-1 w-full min-w-[250px] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="stock"
+              placeholder="Stock"
+              required
+              defaultValue={newProduct.stock === 0 ? "" : newProduct.stock}
+            />
+            <input
+              className="flex-1 w-full min-w-[250px] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="category"
+              placeholder="Category"
+              required
+              defaultValue={newProduct.category}
+            />
+            <input
+              className="flex-1 w-full min-w-[250px] p-4 border-b border-gray-300 rounded"
+              onChange={handleChange}
+              type="text"
+              name="image"
+              placeholder="Image URL"
+              required
+              defaultValue={newProduct.image}
+            />
+            <div className="w-full flex justify-between mt-6">
+              <button
+                type="submit"
+                className="flex items-center justify-start rounded-full border px-5 py-2.5 my-6 bg-[var(--primary-btn-color)] text-[var(--primary-btn-text)] hover:cursor-pointer"
+                onClick={() => {
+                  setShowCreateProduct(false);
+                }}
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                className="flex items-center justify-start rounded-full border px-5 py-2.5 my-6 bg-[var(--primary-btn-color)] text-[var(--primary-btn-text)] hover:cursor-pointer"
+              >
+                Create product
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+    </>
   );
 };
+

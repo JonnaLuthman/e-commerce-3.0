@@ -1,11 +1,20 @@
 @import "tailwindcss";
 
 #root {
-  max-width: 1200px;
   margin: 0 auto;
   height: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
 
+  --bg-primary-color: #fefeee; 
+  --secondary-color: #FFFDC1;
+  
+  --third-color: #bdbf84;
+  --text-dark: #2f2f0e;
+  --text-light: #fefeee; 
+
+  --primary-btn-color: #2f2f0e;
+  --primary-btn-text: #fefcc3;
 }
+

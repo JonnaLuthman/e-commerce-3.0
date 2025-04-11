@@ -4,212 +4,166 @@ import { useNavigate, useParams } from "react-router";
 import { useOrders } from "../hooks/useOrders";
 import OrderContext from "../contexts/OrderContext";
 import { ActionType } from "../reducers/OrderReducer";
+import {
+  CustomerDetails,
+} from "../components/Orders/OrderDetails/CustomerDetails";
+import { OrderInfo } from "../components/Orders/OrderDetails/OrderInfo";
+import { OrderProducts } from "../components/Orders/OrderDetails/OrderProducts";
 
 type ItemIdType = number | null;
 
 export const OrderDetailsPage = () => {
-    const [orderDetails, setOrderDetails] = useState<OrderDetails>({
-        id: 0,
-        customer_id: 0,
-        total_price: 0,
-        payment_status: "",
-        payment_id: "",
-        order_status: "",
-        created_at: "",
-        customer_firstname: "",
-        customer_lastname: "",
-        customer_email: "",
-        customer_phone: "",
-        customer_street_address: "",
-        customer_postal_code: "",
-        customer_city: "",
-        customer_country: "",
-        order_items: []
+  const [orderDetails, setOrderDetails] = useState<OrderDetails>({
+    id: 0,
+    customer_id: 0,
+    total_price: 0,
+    payment_status: "",
+    payment_id: "",
+    order_status: "",
+    created_at: "",
+    customer_firstname: "",
+    customer_lastname: "",
+    customer_email: "",
+    customer_phone: "",
+    customer_street_address: "",
+    customer_postal_code: "",
+    customer_city: "",
+    customer_country: "",
+    order_items: [],
+  });
+  const { id } = useParams();
+  const { dispatch } = useContext(OrderContext);
+  const {
+    fetchOrderByIdHandler,
+    updateOrderHandler,
+    deleteOrderHandler,
+    updateOrderItemHandler,
+    deleteOrderItemHandler,
+  } = useOrders();
+
+  const [selectedId, setSelectedId] = useState<ItemIdType>(null);
+  const [selectedEditSection, setSelectedEditSection] = useState<string | null>(
+    null
+  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getOrder = async () => {
+      const response = await fetchOrderByIdHandler(Number(id));
+      setOrderDetails(response);
+      console.log(response);
+    };
+    getOrder();
+  }, [id]);
+
+  const {
+    created_at,
+  } = orderDetails;
+
+  const handleUpdate = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setOrderDetails({ ...orderDetails, [name]: value });
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    await updateOrderHandler(Number(id), orderDetails);
+    setSelectedEditSection(null);
+  };
+
+  const handleIncrease = async (itemId: ItemIdType) => {
+    setOrderDetails({
+      ...orderDetails,
+      order_items: orderDetails.order_items.map((item) =>
+        item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
+      ),
     });
-    const { id } = useParams();
-    const { dispatch } = useContext(OrderContext)
-    const { fetchOrderByIdHandler, updateOrderHandler, deleteOrderHandler, updateOrderItemHandler, deleteOrderItemHandler } = useOrders();
-    const [selectedId, setSelectedId] = useState<ItemIdType>(null);
-    const [selectedEditSection, setSelectedEditSection] = useState<string | null>(null);
-    const navigate = useNavigate();
+  };
 
-    useEffect(() => {
-        const getOrder = async () => {
-            const response = await fetchOrderByIdHandler(Number(id));
-            setOrderDetails(response)
-            console.log(response)
-        }
-        getOrder();
-    }, [id])
+  const handleDecrease = async (itemId: ItemIdType) => {
+    setOrderDetails({
+      ...orderDetails,
+      order_items: orderDetails.order_items.map((item) =>
+        item.id === itemId && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      ),
+    });
+  };
 
-    const {
-        customer_id,
-        total_price,
-        payment_status,
-        payment_id,
-        order_status,
-        created_at,
-        customer_firstname,
-        customer_lastname,
-        customer_email,
-        customer_phone,
-        customer_street_address,
-        customer_postal_code,
-        customer_city,
-        customer_country,
-        order_items } = orderDetails;
+  const handleSaveQuantity = async (itemId: ItemIdType, quantity: number) => {
+    if (itemId === null) return;
+    const payload = { quantity: quantity };
+    await updateOrderItemHandler(itemId, payload);
+    setSelectedId(Number(null));
+  };
 
-    const handleUpdate = (e: ChangeEvent<HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setOrderDetails({ ...orderDetails, [name]: value });
-    };
+  const handleDeleteOrderItem = async (itemId: ItemIdType) => {
+    if (itemId === null) return;
+    await deleteOrderItemHandler(itemId);
+    setSelectedId(Number(null));
+  };
 
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        await updateOrderHandler(Number(id), orderDetails);
-        setSelectedEditSection(null)
-    };
+  const handleDeleteOrder = async (id: number) => {
+    if (!id) return;
+    await deleteOrderHandler(id);
+    dispatch({
+      type: ActionType.ORDER_DELETED,
+      payload: JSON.stringify(id),
+    });
+    navigate("/admin");
+  };
 
-    const handleIncrease = async (itemId: ItemIdType) => {
-        setOrderDetails({
-            ...orderDetails,
-            order_items: orderDetails.order_items.map((item) => (
-                item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
-            ))
-        })
-    }
+  return (
+    <>
+      <div className="bg-white grid grid-cols-1 md:grid-cols-3 gap-6 p-6 rounded">
+        <div className="col-span-3">
+          <h2 className="font-bold text-2xl ">Order #{id}</h2>
+          <p>
+            <b>Created at:</b> {created_at}
+          </p>
+        </div>
 
-    const handleDecrease = async (itemId: ItemIdType) => {
-        setOrderDetails({
-            ...orderDetails,
-            order_items: orderDetails.order_items.map((item) => (
-                item.id === itemId && item.quantity > 1
-                    ? { ...item, quantity: item.quantity - 1 }
-                    : item
-            ))
-        })
-    }
+        <section className="space-y-2">
+          <OrderInfo
+            order={orderDetails}
+            selectedEditSection={selectedEditSection}
+            setSelectedEditSection={setSelectedEditSection}
+            handleUpdate={handleUpdate}
+            handleSubmit={handleSubmit}
+          />
+        </section>
 
-    const handleSaveQuantity = async (itemId: ItemIdType, quantity: number) => {
-        if (itemId === null) return;
-        const payload = { quantity: quantity };
-        await updateOrderItemHandler(itemId, payload);
-        setSelectedId(Number(null));
-    }
+        <section className="space-y-2">
+          <CustomerDetails order={orderDetails} />
+        </section>
 
-    const handleDeleteOrderItem = async (itemId: ItemIdType) => {
-        if (itemId === null) return;
-        await deleteOrderItemHandler(itemId);
-        setSelectedId(Number(null));
-    }
+        <section className="space-y-2">
+          <OrderProducts
+            orderItems={orderDetails.order_items}
+            selectedId={selectedId}
+            setSelectedId={setSelectedId}
+            handleDecrease={handleDecrease}
+            handleIncrease={handleIncrease}
+            handleDeleteOrderItem={handleDeleteOrderItem}
+            handleSaveQuantity={handleSaveQuantity}
+          />
+        </section>
 
-    const handleDeleteOrder = async (id: number) => {
-        if (!id) return;
-        await deleteOrderHandler(id);
-        dispatch({
-            type: ActionType.ORDER_DELETED,
-            payload: JSON.stringify(id),
-        });
-        navigate("/admin")
-    };
-
-    return (
-        <>
-            <button onClick={() => navigate("/admin")}>Back to All Orders</button>
-            <section className="order-details-wrapper">
-                <div className="order-main">
-                    <p><b>Order number:</b> {id}</p>
-                    {selectedEditSection === "order"
-                        ? (
-                            <form onSubmit={handleSubmit}>
-                                <label>
-                                    Status:
-                                    <div className="flex">
-                                        <select name="order_status" onChange={handleUpdate} defaultValue={order_status}>
-                                            <option value="placed">Placed</option>
-                                            <option value="cancelled">Cancelled</option>
-                                            <option value="confirmed">Confirmed</option>
-                                            <option value="processing">Processing</option>
-                                            <option value="shipped">Shipped</option>
-                                            <option value="outForDelivery">Out for delivery</option>
-                                            <option value="delivered">Delivered</option>
-                                        </select>
-                                        <button type="submit">Save</button>
-                                    </div>
-                                </label>
-                            </form>
-                        ) : (
-                            <>
-                                <p><b>Status:</b> {order_status}</p>
-                                <button onClick={() => setSelectedEditSection("order")}>Edit</button>
-                            </>
-                        )}
-
-                    <p><b>Created at:</b> {created_at}</p>
-                </div>
-                <div className="flex">
-                    <section className="order-payment-wrapper">
-                        <p>{payment_id}</p>
-                        {selectedEditSection === "payment"
-                            ? (
-                                <form onSubmit={handleSubmit}>
-                                    <label>
-                                        <b>Payment Status:</b>
-                                        <div>
-                                            <select name="payment_status" onChange={handleUpdate} defaultValue={payment_status}>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="failed">Failed</option>
-                                            </select>
-                                            <button type="submit">Save</button>
-                                        </div>
-                                    </label>
-                                </form>
-                            ) : (
-                                <>
-                                    <p><b>Payment Status:</b> {payment_status}</p>
-                                    <button onClick={() => setSelectedEditSection("payment")}>Edit</button>
-                                </>
-                            )}
-                        <p><b>Total Price: </b>{total_price} kr</p>
-                    </section>
-                    <section className="order-customer-wrapper">
-                        <h3>Customer Details</h3>
-                        <p>Customer ID: {customer_id}</p>
-                        <p>Name: {customer_firstname} {customer_lastname}</p>
-                        <p>Email: {customer_email}</p>
-                        <p>Phone: {customer_phone}</p>
-                        <p>Adress: {customer_street_address}</p>
-                        <p>{customer_postal_code} {customer_city}</p>
-                        <p>{customer_country}</p>
-                    </section>
-                </div>
-                <ul className="order-items">
-                    {order_items.map((item) => (
-                        <li key={item.id}>
-                            <p>{item.product_name}</p>
-                            <p>{item.quantity}</p>
-                            {selectedId !== item.id ? (
-                                <button onClick={() => { setSelectedId(Number(item.id)) }}>Edit</button>
-                            ) : (
-                                <div>
-                                    <div className="flex">
-                                        <button onClick={() => handleDecrease(item.id)}>-</button>
-                                        <p>{item.quantity}</p>
-                                        <button onClick={() => { handleIncrease(item.id) }}>+</button>
-                                    </div>
-                                    <div className="flex">
-                                        <button onClick={() => { handleDeleteOrderItem(item.id) }} >Delete</button>
-                                        <button onClick={() => { handleSaveQuantity(item.id, item.quantity) }} >Save</button>
-                                    </div>
-                                </div>
-                            )
-                            }
-                        </li>
-                    ))}
-                </ul>
-                <button onClick={() => { handleDeleteOrder(Number(id)) }}>Delete order</button>
-            </section >
-        </>
-    )
-}
+        <section className="space-y-2 ">
+        <button onClick={() => navigate("/admin")}
+      className="my-4 rounded-full border px-5 py-2.5 bg-[var(--primary-btn-color)] text-[var(--primary-btn-text)] bg-[var(--primary-btn-color)] hover:text-[var(--primary-btn-color)] hover:bg-[var(--primary-bg-color)]"
+        >Back to All Orders</button>
+               <button
+          onClick={() => {
+            handleDeleteOrder(Number(id));
+          }}
+          className="my-4 rounded-full border px-5 py-2.5 bg-[var(--primary-btn-color)] text-[var(--primary-btn-text)] bg-[var(--primary-btn-color)] hover:text-[var(--primary-btn-color)] hover:bg-[var(--primary-bg-color)]"
+        >
+          Delete order
+        </button>
+        </section>
+        </div>
+    </>
+  );
+};

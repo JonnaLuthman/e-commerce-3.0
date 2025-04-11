@@ -12,12 +12,12 @@ export const AdminPage = () => {
 
   return (
     <div>
-      <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-        <ul className="flex flex-wrap -mb-px">
+      <div className="text-sm font-medium text-center text-[var(--text-dark)] ">
+        <ul className="flex flex-wrap -mb-px border-b border-[var(--text-dark)]">
           <li className="me-2">
             <button
               onClick={() => setActiveSection("orders")}
-              className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+              className="inline-block p-4 rounded-t-lg hover:text-black hover:border-black"
             >
               Orders
             </button>
@@ -25,7 +25,7 @@ export const AdminPage = () => {
           <li className="me-2">
             <button
               onClick={() => setActiveSection("products")}
-              className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+              className="inline-block p-4 rounded-t-lg hover:text-black hover:border-black"
             >
               Products
             </button>
@@ -33,7 +33,7 @@ export const AdminPage = () => {
           <li className="me-2">
             <button
               onClick={() => setActiveSection("customers")}
-              className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+              className="inline-block p-4 rounded-t-lg hover:text-black hover:border-black"
             >
               Customers
             </button>
