@@ -37,7 +37,7 @@ export const OrderConfirmation = () => {
 
       cartDispatch({
         type: cartActionType.RESET_CART,
-        payload: [],
+        payload: null,
       });
 
       removeFromLocalStorage("cart");

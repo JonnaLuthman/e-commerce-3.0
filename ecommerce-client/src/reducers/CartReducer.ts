@@ -2,33 +2,42 @@ import { CartItem } from "../types/CartItem";
 
 export interface ICartAction {
   type: cartActionType;
-  payload: CartItem | any;
+  payload: CartItem | null;
 }
+
+export type CartState = {
+  items: CartItem[];
+  isNotificationOpen: boolean;
+};
 
 export enum cartActionType {
   ADD_ITEM,
   REMOVE_ITEM,
   CHANGE_QUANTITY,
   RESET_CART,
+  CLOSE_NOTIFICATION,
+  OPEN_NOTIFICATION
 }
 
-export const CartReducer = (cart: CartItem[], action: ICartAction) => {
+export const CartReducer = (state: CartState, action: ICartAction) => {
   const { type, payload } = action;
 
   switch (type) {
     case cartActionType.ADD_ITEM: {
-      const cartItemExists = cart.find(
-        (cartItem) => cartItem.product.id == payload.product.id
+      if (!payload) return state;
+
+      const cartItemExists = state.items.find(
+        (cartItem) => cartItem.product.id == payload?.product.id
       );
 
-      console.log("cart", cart);
+      let updateItems;
 
       if (!cartItemExists) {
         console.log("cartItemExists", cartItemExists);
-        return [...cart, payload];
+        updateItems = [...state.items, payload];
       } else {
-        return cart.map((cartItem) =>
-          cartItem.product.id === payload.product.id
+        updateItems = state.items.map((cartItem) =>
+          cartItem.product.id === payload?.product.id
             ? {
                 ...cartItem,
                 quantity: cartItem.quantity + (payload.quantity || 1),
@@ -36,12 +45,18 @@ export const CartReducer = (cart: CartItem[], action: ICartAction) => {
             : cartItem
         );
       }
+      return {
+        items: updateItems,
+        isNotificationOpen: true,
+      }
     }
 
     case cartActionType.CHANGE_QUANTITY: {
-      return cart
+      if (!payload) return state;
+
+      const updatedItems = state.items
         .map((cartItem) => {
-          if (cartItem.product.id === payload.product.id) {
+          if (cartItem.product.id === payload?.product.id) {
             const totalQuantity = cartItem.quantity + payload.quantity;
             if (totalQuantity <= 0) {
               return null;
@@ -53,21 +68,49 @@ export const CartReducer = (cart: CartItem[], action: ICartAction) => {
           }
           return cartItem;
         })
-        .filter((cartItem) => cartItem !== null);
+        .filter((cartItem):cartItem is CartItem => cartItem !== null);
+
+        return {
+          ...state,
+          items: updatedItems
+        }
     }
 
     case cartActionType.REMOVE_ITEM: {
-      console.log("cart- REMOVE", cart)
-      return cart.filter(
-        (cartItem) => cartItem.product.id !== payload.id
+      if (!payload) return state;
+
+      const updatedItems = state.items.filter(
+        (cartItem) => cartItem.product.id !== payload?.product.id
       );
+
+      return {
+        ...state,
+        items: updatedItems,
+      };
     }
 
     case cartActionType.RESET_CART: {
-      return [];
+      return {
+        items: [],
+        isNotificationOpen: false,
+      };
+    }
+
+    case cartActionType.CLOSE_NOTIFICATION: {
+      return {
+        ...state,
+        isNotificationOpen: false,
+      };
+    }
+
+    case cartActionType.OPEN_NOTIFICATION: {
+      return {
+        ...state,
+        isNotificationOpen: true,
+      };
     }
 
     default:
-      return cart;
+      return state;
   }
 };
